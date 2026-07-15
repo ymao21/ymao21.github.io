@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yining Mao — Portfolio</title>
+  <meta name="description" content="Yining Mao — Applied Data Science graduate student at UChicago. Data science, AI, LLMs, analytics, and strategy." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="nav" id="nav">
+    <a href="#top" class="nav-logo">YM<span class="accent">.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <!-- Three.js animation canvas lives here -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Data Science · AI · Strategy</p>
+      <h1 class="hero-title">
+        Hi, I’m Yining — I turn <span class="gradient-text">ideas, data, and technology</span> into useful things.
+      </h1>
+      <p class="hero-subtitle">
+        Applied Data Science graduate student at UChicago exploring AI, LLMs, agentic workflows, analytics, and strategy.
+      </p>
+      <div class="hero-buttons">
+        <a href="resume.pdf" target="_blank" class="btn btn-primary">View Resume</a>
+        <a href="https://www.linkedin.com/in/yiningmao/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://github.com/ymao21" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="#contact" class="btn btn-ghost">Contact</a>
+      </div>
+    </div>
+
+    <a href="#about" class="scroll-hint" aria-label="Scroll down">
+      <span class="scroll-hint-dot"></span>
+    </a>
+  </header>
+
+  <main>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <h2 class="section-title"><span class="section-num">01</span> About</h2>
+      <div class="about-grid reveal">
+        <div class="glass-card about-card">
+          <p>
+            I’m Yining, an Applied Data Science graduate student at the University of Chicago with a background in
+            Economics and Math from Boston College. I’m currently exploring AI, LLMs, and agentic workflows, and I’m
+            especially interested in how technology can make work smarter, more creative, and more human.
+          </p>
+          <p>
+            Outside of work and school, I’m happiest when I’m touching grass in some form: hiking, climbing, skiing,
+            snowboarding, or just exploring somewhere new. I also love traveling, wandering through museums, learning
+            about history, and finding small details that make a place feel alive. When I’m indoors, I enjoy cooking,
+            baking, and making sweet treats for people I love. I like building things, learning fast, and staying
+            curious — whether that’s through data, technology, a new recipe, or a random museum exhibit I spend way
+            too long reading.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <h2 class="section-title"><span class="section-num">02</span> Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="glass-card timeline-card">
+            <h3>State Street</h3>
+            <p class="timeline-role">Analytics &amp; Portfolio Services</p>
+            <p>
+              Analytics, automation, and dashboards for risk reporting and portfolio services —
+              with plenty of stakeholder-facing work along the way.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="glass-card timeline-card">
+            <h3>ISACA</h3>
+            <p class="timeline-role">Enterprise Risk Management</p>
+            <p>
+              Enterprise risk management, AI tool evaluation, OneTrust, reporting workflows,
+              and making sense of risk data.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="glass-card timeline-card">
+            <h3>Curajoy</h3>
+            <p class="timeline-role">Product &amp; Mentorship</p>
+            <p>
+              Product and project experience, mentorship, and user-facing thinking.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section" id="projects">
+      <h2 class="section-title"><span class="section-num">03</span> Projects</h2>
+      <div class="projects-grid">
+
+        <article class="glass-card project-card reveal">
+          <div class="project-tag">Multi-Agent AI</div>
+          <h3>Clinical Knowledge Graph · AI Hackathon</h3>
+          <p>Built an AI workflow using multiple agents to support clinical reasoning and knowledge graph tasks.</p>
+          <div class="project-chips"><span>LLMs</span><span>Agents</span><span>Knowledge Graphs</span></div>
+        </article>
+
+        <article class="glass-card project-card reveal">
+          <div class="project-tag">Machine Learning</div>
+          <h3>Verizon Credit Risk Modeling</h3>
+          <p>Built a credit risk screening approach using historical applications and logistic regression.</p>
+          <div class="project-chips"><span>Python</span><span>Logistic Regression</span><span>Risk</span></div>
+        </article>
+
+        <article class="glass-card project-card reveal">
+          <div class="project-tag">Machine Learning</div>
+          <h3>Speech Emotion Recognition</h3>
+          <p>Classified emotion from audio features using machine learning models.</p>
+          <div class="project-chips"><span>Audio</span><span>ML</span><span>Classification</span></div>
+        </article>
+
+        <article class="glass-card project-card reveal">
+          <div class="project-tag">Big Data</div>
+          <h3>Big Data Analytics with PySpark</h3>
+          <p>Used PySpark and cloud tools to analyze large-scale datasets.</p>
+          <div class="project-chips"><span>PySpark</span><span>Cloud</span><span>Analytics</span></div>
+        </article>
+
+        <article class="glass-card project-card reveal">
+          <div class="project-tag">AI × Risk</div>
+          <h3>ERM AI Tool Evaluation</h3>
+          <p>Evaluated AI tools for enterprise risk workflows and document-based reporting.</p>
+          <div class="project-chips"><span>AI Tools</span><span>ERM</span><span>Reporting</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section" id="skills">
+      <h2 class="section-title"><span class="section-num">04</span> Skills</h2>
+      <div class="skills-grid">
+
+        <div class="glass-card skill-group reveal">
+          <h3>Programming</h3>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">SQL</span>
+            <span class="chip">R</span><span class="chip">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="glass-card skill-group reveal">
+          <h3>Data / ML</h3>
+          <div class="chips">
+            <span class="chip">Machine Learning</span><span class="chip">NLP</span>
+            <span class="chip">Statistical Modeling</span><span class="chip">Dashboards</span>
+            <span class="chip">Analytics</span>
+          </div>
+        </div>
+
+        <div class="glass-card skill-group reveal">
+          <h3>AI</h3>
+          <div class="chips">
+            <span class="chip">LLMs</span><span class="chip">Prompt Engineering</span>
+            <span class="chip">RAG</span><span class="chip">Agentic Workflows</span>
+            <span class="chip">Knowledge Graphs</span>
+          </div>
+        </div>
+
+        <div class="glass-card skill-group reveal">
+          <h3>Tools</h3>
+          <div class="chips">
+            <span class="chip">Tableau</span><span class="chip">Power BI</span>
+            <span class="chip">Excel</span><span class="chip">Jira</span>
+            <span class="chip">GitHub</span><span class="chip">GCP</span>
+            <span class="chip">PySpark</span>
+          </div>
+        </div>
+
+        <div class="glass-card skill-group reveal skill-group-wide">
+          <h3>Business</h3>
+          <div class="chips">
+            <span class="chip">Strategy</span><span class="chip">Risk Analytics</span>
+            <span class="chip">Stakeholder Communication</span><span class="chip">Process Improvement</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section" id="contact">
+      <h2 class="section-title"><span class="section-num">05</span> Contact</h2>
+      <div class="glass-card contact-card reveal">
+        <h3>Let’s build something together.</h3>
+        <p>Open to data science, AI, analytics, and strategy opportunities — or just a good conversation.</p>
+        <div class="contact-links">
+          <a href="mailto:your.email@example.com" class="btn btn-primary">your.email@example.com</a>
+          <a href="https://www.linkedin.com/in/yiningmao/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+          <a href="https://github.com/ymao21" target="_blank" class="btn btn-ghost">GitHub</a>
+          <a href="resume.pdf" target="_blank" class="btn btn-ghost">Resume</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Yining Mao · Built with plain HTML, CSS, JS &amp; Three.js</p>
+  </footer>
+
+  <!-- Three.js from CDN (global THREE variable) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
