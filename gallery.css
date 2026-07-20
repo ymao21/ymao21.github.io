@@ -1,0 +1,154 @@
+/* ==========================================================
+   Rotating Polaroid gallery (About section).
+   Card positions/scale/opacity are written by js/gallery.js each
+   frame (transform + opacity only). This file styles the frame,
+   the 3D flip, the back, responsive sizes and reduced-motion.
+   Scoped entirely to .about-gallery / .polaroid.
+   ========================================================== */
+
+.about-gallery {
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  height: 400px;
+  margin: 46px auto 0;
+  padding: 0 24px;
+  /* subtle stage — keeps the front card grounded */
+}
+
+/* each card: absolutely centred; JS applies the elliptical transform */
+.polaroid {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 1000px;                 /* space for the inner flip */
+  transform: translate(-50%, -50%);    /* JS overwrites with the full transform */
+  will-change: transform, opacity;
+  -webkit-tap-highlight-color: transparent;
+}
+.polaroid--landscape { width: 236px; }
+.polaroid--portrait  { width: 186px; }
+
+.polaroid-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.polaroid.flipped .polaroid-inner { transform: rotateY(180deg); }
+
+.polaroid-face {
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(92, 65, 76, 0.08);
+  box-shadow: 0 14px 36px rgba(78, 54, 65, 0.16);
+  transition: box-shadow 220ms ease;
+}
+/* warm ivory Polaroid front with a larger lower border + faint paper grain */
+.polaroid-front {
+  position: relative;
+  padding: 12px 12px 34px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23g)'/%3E%3C/svg%3E"),
+    linear-gradient(160deg, #FFF9F5 0%, #FDF5EF 55%, #F8EEE7 100%);
+}
+.polaroid-photo {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #efe5dc;
+}
+.polaroid--landscape .polaroid-photo { aspect-ratio: 4 / 3; }
+.polaroid--portrait  .polaroid-photo { aspect-ratio: 3 / 4; }
+.polaroid-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* subtle "click to flip" hint in the lower border, on hover/focus only */
+.polaroid-hint {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 10px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #a98a99;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.polaroid:hover .polaroid-hint,
+.polaroid:focus-visible .polaroid-hint { opacity: 0.92; }
+
+/* --- back: warm blush card with the caption --- */
+.polaroid-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 20px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(217, 143, 163, 0.4);
+  background: linear-gradient(160deg, #FFF8F3 0%, #F9ECE9 100%);
+}
+.pb-title {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.28;
+  color: #514653;
+  max-width: 24ch;
+}
+.pb-caption {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #6b5c6d;
+  max-width: 24ch;
+}
+.pb-flourish { color: #B89962; letter-spacing: 0.3em; }
+.pb-flourish--top { font-size: 11px; margin-bottom: 2px; }
+
+/* hover / focus emphasis (scale is added by JS; here we deepen the shadow) */
+.polaroid.is-hover .polaroid-face { box-shadow: 0 20px 46px rgba(78, 54, 65, 0.24); }
+.polaroid:focus-visible { outline: none; }
+.polaroid:focus-visible .polaroid-face {
+  outline: 2px solid #D98FA3;
+  outline-offset: 3px;
+}
+
+/* --- responsive --- */
+@media (max-width: 1024px) {
+  .about-gallery { height: 348px; }
+  .polaroid--landscape { width: 200px; }
+  .polaroid--portrait  { width: 158px; }
+}
+@media (max-width: 720px) {
+  .about-gallery { height: 300px; padding: 0 12px; }
+  .polaroid--landscape { width: 168px; }
+  .polaroid--portrait  { width: 132px; }
+  .polaroid-front { padding: 9px 9px 26px; }
+  .pb-heading { font-size: 18px; }
+  .pb-caption { font-size: 13px; }
+}
+
+/* --- reduced motion: instant flip; carousel is held static by JS --- */
+@media (prefers-reduced-motion: reduce) {
+  .polaroid-inner { transition: none; }
+}

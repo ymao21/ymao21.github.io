@@ -4,12 +4,12 @@
    2. Constellation hero background
    3. Global flower-planting layer
    4. Project bookshelf (data-driven) + open-book modal
-   5. About photo collage + lightbox
+   5. Flowering-vine Experience timeline
    6. Cinematic hero video loop
+   (About photo gallery lives in js/gallery.js)
    ========================================================== */
 
 import { projects } from './js/data/projects.js';
-import { aboutPhotos } from './js/data/aboutPhotos.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const coarsePointer = window.matchMedia('(pointer: coarse)');
@@ -171,7 +171,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
 
   document.addEventListener('click', (e) => {
     // never plant on interactive or media elements
-    if (e.target.closest('a, button, input, textarea, select, label, canvas, dialog, [role="dialog"], .book, .photo-item, .nav, .hero-copy, .shelf-scroll, .collage, .tl-item')) return;
+    if (e.target.closest('a, button, input, textarea, select, label, canvas, dialog, [role="dialog"], .book, .polaroid, .nav, .hero-copy, .shelf-scroll, .about-gallery, .tl-item')) return;
     // skip drags and text selection
     if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 8) return;
     const sel = window.getSelection();
@@ -387,144 +387,6 @@ document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
       shelf.querySelectorAll('.previewed').forEach((el) => el.classList.remove('previewed'));
     }
   });
-})();
-
-/* ---------- 5. About collage + lightbox ---------- */
-(function collage() {
-  const wrap = document.getElementById('collage');
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbCaption = document.getElementById('lbCaption');
-  const lbPrev = document.getElementById('lbPrev');
-  const lbNext = document.getElementById('lbNext');
-
-  // loose collage slots per photo index (desktop; mobile layout is pure CSS):
-  // { l, t, w: % positions/size, z: stacking, pr: radius, rot: deg, enter, depth }
-  const slots = [
-    { l: '0%', t: '0%', w: '52%', z: 2, pr: 18, rot: -0.8, enter: 'enter-feature', depth: 0.5 },
-    { l: '47%', t: '7%', w: '54%', z: 3, pr: 14, rot: 1.1, enter: 'enter-right', depth: 1.0 },
-    { l: '66%', t: '35%', w: '27%', z: 4, pr: 14, rot: -1.4, enter: 'enter-up', depth: 0.7 },
-    { l: '1%', t: '44%', w: '45%', z: 2, pr: 16, rot: 1.0, enter: 'enter-left', depth: 0.9 },
-    { l: '40%', t: '38%', w: '24%', z: 5, pr: 12, rot: -0.9, enter: 'enter-spin', depth: 1.2 },
-    { l: '63%', t: '66%', w: '24%', z: 3, pr: 12, rot: 1.3, enter: 'enter-up', depth: 1.1 },
-    { l: '3%', t: '70%', w: '25%', z: 2, pr: 14, rot: -1.1, enter: 'enter-left', depth: 0.6 },
-    { l: '31%', t: '69%', w: '28%', z: 4, pr: 16, rot: 0.9, enter: 'enter-right', depth: 0.8 }
-  ];
-
-  const items = [];
-  aboutPhotos.forEach((ph, i) => {
-    const s = slots[i % slots.length];
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = `photo-item ph-${ph.layout || 'landscape'} ${s.enter}${ph.featured ? ' featured' : ''}`;
-    el.style.setProperty('--l', s.l);
-    el.style.setProperty('--t', s.t);
-    el.style.setProperty('--w', s.w);
-    el.style.setProperty('--z', s.z);
-    el.style.setProperty('--pr', s.pr + 'px');
-    el.style.setProperty('--prot', s.rot + 'deg');
-    el.style.animationDelay = ph.featured ? '0s' : (0.12 + i * 0.09) + 's';
-    el.dataset.index = i;
-    el.dataset.depth = s.depth;
-    el.setAttribute('aria-label', `View photo: ${ph.alt}`);
-    el.innerHTML = `
-      <img src="${ph.src}" alt="${ph.alt}" loading="lazy" />
-      ${ph.caption ? `<figcaption>${ph.caption}</figcaption>` : ''}`;
-    wrap.appendChild(el);
-    items.push(el);
-    el.addEventListener('click', () => openLightbox(i));
-  });
-
-  // entrance reveal
-  const io = new IntersectionObserver(([en]) => {
-    if (en.isIntersecting) { wrap.classList.add('in'); io.disconnect(); }
-  }, { threshold: 0.2 });
-  io.observe(wrap);
-
-  // desktop cursor parallax (4–10px) — skipped on touch / reduced motion
-  if (!coarsePointer.matches && !reducedMotion.matches) {
-    let raf = 0, tx = 0, ty = 0;
-    const about = document.getElementById('about');
-    about.addEventListener('pointermove', (e) => {
-      tx = (e.clientX / innerWidth - 0.5);
-      ty = (e.clientY / innerHeight - 0.5);
-      if (!raf) raf = requestAnimationFrame(apply);
-    }, { passive: true });
-    function apply() {
-      raf = 0;
-      for (const el of items) {
-        const d = parseFloat(el.dataset.depth);
-        el.style.setProperty('--px', (tx * d * -9).toFixed(1) + 'px');
-        el.style.setProperty('--py', (ty * d * -7).toFixed(1) + 'px');
-      }
-    }
-    // one restrained scroll-linked effect: the collage lags the page slightly
-    let scrollRaf = 0;
-    window.addEventListener('scroll', () => {
-      if (scrollRaf) return;
-      scrollRaf = requestAnimationFrame(() => {
-        scrollRaf = 0;
-        const r = wrap.getBoundingClientRect();
-        if (r.bottom < -100 || r.top > innerHeight + 100) return;
-        const centerDelta = (r.top + r.height / 2) - innerHeight / 2;
-        const off = Math.max(-22, Math.min(22, centerDelta * 0.045));
-        wrap.style.transform = `translateY(${off.toFixed(1)}px)`;
-      });
-    }, { passive: true });
-  }
-
-  /* ----- lightbox ----- */
-  let lbIndex = 0;
-  let lastFocused = null;
-
-  function renderLb() {
-    const ph = aboutPhotos[lbIndex];
-    lbImg.src = ph.src;
-    lbImg.alt = ph.alt;
-    lbCaption.textContent = ph.caption || '';
-    lbCaption.style.display = ph.caption ? '' : 'none';
-  }
-  function openLightbox(i) {
-    lbIndex = i;
-    lastFocused = document.activeElement;
-    renderLb();
-    lb.hidden = false;
-    document.body.style.overflow = 'hidden';
-    lb.querySelector('.lb-close').focus();
-  }
-  function closeLightbox() {
-    lb.hidden = true;
-    document.body.style.overflow = '';
-    if (lastFocused) lastFocused.focus();
-  }
-  function step(dir) {
-    lbIndex = (lbIndex + dir + aboutPhotos.length) % aboutPhotos.length;
-    renderLb();
-  }
-
-  lbPrev.addEventListener('click', () => step(-1));
-  lbNext.addEventListener('click', () => step(1));
-  lb.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeLightbox));
-  lb.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') step(-1);
-    if (e.key === 'ArrowRight') step(1);
-    if (e.key === 'Tab') {
-      const focusables = lb.querySelectorAll('button');
-      const first = focusables[0], last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-  // touch swipe
-  let touchX = null;
-  lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
-  lb.addEventListener('touchend', (e) => {
-    if (touchX === null) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 48) step(dx > 0 ? -1 : 1);
-    touchX = null;
-  }, { passive: true });
 })();
 
 /* ---------- 6. Flowering-vine Experience timeline ---------- */

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="cursor.css" />
   <link rel="stylesheet" href="flowers.css" />
+  <link rel="stylesheet" href="gallery.css" />
 </head>
 <body>
 
@@ -129,9 +130,10 @@
             sweet treats for people I love.
           </p>
         </div>
-
-        <div class="collage" id="collage" aria-label="Photos from Yining's life outside work"></div>
       </div>
+
+      <!-- Rotating Polaroid photo gallery (built by js/gallery.js) -->
+      <div class="about-gallery" id="photoGallery" aria-label="A rotating gallery of personal photos"></div>
     </section>
 
     <!-- ───────── Experience ───────── -->
@@ -274,20 +276,9 @@
     </div>
   </div>
 
-  <!-- ───────── Photo lightbox ───────── -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
-    <div class="lb-backdrop" data-close></div>
-    <figure class="lb-figure">
-      <img id="lbImg" src="" alt="" />
-      <figcaption id="lbCaption"></figcaption>
-    </figure>
-    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">←</button>
-    <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">→</button>
-    <button class="lb-btn lb-close" data-close aria-label="Close photo viewer">✕</button>
-  </div>
-
   <script type="module" src="script.js"></script>
   <script src="js/cursor.js" defer></script>
   <script src="js/flowers.js" defer></script>
+  <script type="module" src="js/gallery.js"></script>
 </body>
 </html>

@@ -811,15 +811,11 @@ h2 {
 /* ---------- About ---------- */
 .about { padding: 130px 0 90px; position: relative; }
 .about-grid {
-  max-width: 1180px;
+  max-width: 720px;
   margin: 34px auto 0;
   padding: 0 40px;
-  display: grid;
-  grid-template-columns: 40fr 60fr;
-  gap: 56px;
-  align-items: start;
 }
-.about-copy p { font-size: 16.5px; color: var(--ink); margin-bottom: 18px; max-width: 46ch; }
+.about-copy p { font-size: 16.5px; color: var(--ink); margin-bottom: 18px; max-width: none; }
 
 /* loose editorial collage: absolutely placed, overlapping prints */
 .collage {
