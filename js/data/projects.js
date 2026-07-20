@@ -45,7 +45,7 @@ export const projects = [
     ],
     coverColor: "#8C4A52",
     accentColor: "#F2D8C9",
-    dimensions: { width: 58, height: 300, depth: 40 }
+    dimensions: { width: 66, height: 300, depth: 40 }
   },
   {
     slug: "dog-vision",
@@ -73,7 +73,7 @@ export const projects = [
     github: "https://github.com/ymao21/Speech-Emotion-Recognition-",
     coverColor: "#3D405B",
     accentColor: "#EED7CE",
-    dimensions: { width: 50, height: 296, depth: 37 }
+    dimensions: { width: 52, height: 296, depth: 37 }
   },
   {
     slug: "ai-industry-analysis",
@@ -87,7 +87,7 @@ export const projects = [
     github: "https://github.com/ymao21/AI-Industry-Analysis-using-NLP-Transformer-Models",
     coverColor: "#6D4C6F",
     accentColor: "#F0DFD3",
-    dimensions: { width: 54, height: 290, depth: 39 }
+    dimensions: { width: 60, height: 290, depth: 39 }
   },
   {
     slug: "snowshop",
@@ -129,7 +129,7 @@ export const projects = [
     github: "https://github.com/ymao21/end-to-end-RAG-system-for-AI-research-papers",
     coverColor: "#9CAF97",
     accentColor: "#3E4A3C",
-    dimensions: { width: 44, height: 274, depth: 33 }
+    dimensions: { width: 58, height: 274, depth: 33 }
   },
   {
     slug: "verizon-default-risk",
@@ -143,7 +143,7 @@ export const projects = [
     github: "https://github.com/ymao21/Verizon-default-risk-modeling-project",
     coverColor: "#5C5470",
     accentColor: "#EBDCCB",
-    dimensions: { width: 40, height: 262, depth: 30 }
+    dimensions: { width: 60, height: 262, depth: 30 }
   },
   {
     slug: "amazon-review-similarity",
@@ -157,7 +157,7 @@ export const projects = [
     github: "https://github.com/ymao21/amazon-reviews-ai-similarity",
     coverColor: "#B98263",
     accentColor: "#F4E7D8",
-    dimensions: { width: 46, height: 270, depth: 34 }
+    dimensions: { width: 50, height: 270, depth: 34 }
   },
   {
     slug: "spotify-song-recommender",
@@ -171,7 +171,7 @@ export const projects = [
     github: "https://github.com/ymao21/spotify-song-clustering-recommender",
     coverColor: "#A99BC6",
     accentColor: "#3E3650",
-    dimensions: { width: 41, height: 258, depth: 31 }
+    dimensions: { width: 52, height: 258, depth: 31 }
   },
   {
     slug: "influenza-forecasting",
@@ -185,7 +185,7 @@ export const projects = [
     github: "https://github.com/ymao21/seasonal-influenza-forecasting-models",
     coverColor: "#6FA8A0",
     accentColor: "#2E4744",
-    dimensions: { width: 43, height: 268, depth: 32 }
+    dimensions: { width: 52, height: 268, depth: 32 }
   },
   {
     slug: "ecommerce-segmentation",
@@ -199,7 +199,7 @@ export const projects = [
     github: "https://github.com/ymao21/ecommerce-customer-segmentation",
     coverColor: "#D9A79C",
     accentColor: "#503C3F",
-    dimensions: { width: 45, height: 264, depth: 33 }
+    dimensions: { width: 56, height: 264, depth: 33 }
   },
   {
     slug: "speech-to-speech-assistant",
@@ -213,6 +213,6 @@ export const projects = [
     github: "https://github.com/ymao21/simple-speech-to-speech-llm-assistant",
     coverColor: "#C7B9A2",
     accentColor: "#4E4536",
-    dimensions: { width: 42, height: 272, depth: 31 }
+    dimensions: { width: 54, height: 272, depth: 31 }
   }
 ];

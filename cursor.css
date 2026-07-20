@@ -1,0 +1,135 @@
+/* ==========================================================
+   Custom flower cursor — fine-pointer devices only.
+   Scoped entirely to the .flower-cursor element; nothing else
+   on the page is restyled. Native cursor is only hidden once
+   JS adds .flower-cursor-active to <html>.
+   ========================================================== */
+
+.flower-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483000;      /* above modals / lightbox */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  will-change: transform;
+}
+.flower-cursor.visible { opacity: 1; }
+.flower-cursor.over-text { opacity: 0; }   /* let native text caret show */
+
+/* soft translucent hover ring */
+.fc-ring {
+  position: absolute;
+  left: 0; top: 0;
+  width: 42px; height: 42px;
+  margin: -21px 0 0 -21px;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 143, 163, 0.55);
+  background: rgba(231, 161, 181, 0.10);
+  opacity: 0;
+  transform: scale(0.55);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+/* antique-gold sparkle (bookshelf state only) */
+.fc-sparkle {
+  position: absolute;
+  left: 0; top: 0;
+  width: 11px; height: 11px;
+  margin: -15px 0 0 3px;    /* near the upper-right petal */
+  opacity: 0;
+  transform: scale(0.4) rotate(0deg);
+  transition: opacity 200ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fc-sparkle svg { display: block; width: 100%; height: 100%; }
+
+/* scale / rotate layer (state-driven) — always keeps the centering translate */
+.fc-scale {
+  position: absolute;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms ease;
+}
+
+/* idle "breeze" layer */
+.fc-flower {
+  width: 24px; height: 24px;
+  transform-origin: 50% 50%;
+  animation: fcBreeze 3s ease-in-out infinite alternate;
+}
+.fc-flower svg { display: block; width: 100%; height: 100%; }
+@keyframes fcBreeze {
+  from { transform: rotate(-4deg) scale(0.97); }
+  to   { transform: rotate(4deg)  scale(1.03); }
+}
+
+/* ---------- hover: clickable elements ---------- */
+.flower-cursor.is-hover .fc-scale {
+  transform: translate(-50%, -50%) scale(1.42) rotate(12deg);
+  filter: brightness(1.06) saturate(1.05);
+}
+.flower-cursor.is-hover .fc-ring { opacity: 1; transform: scale(1); }
+
+/* ---------- bookshelf: project books ---------- */
+.flower-cursor.on-book .fc-scale {
+  transform: translate(-50%, -50%) scale(1.16) rotate(8deg);
+  filter: saturate(1.22) contrast(1.05) brightness(0.97);
+}
+.flower-cursor.on-book .fc-ring {
+  opacity: 1;
+  transform: scale(0.92);
+  border-color: rgba(184, 153, 98, 0.5);
+  background: rgba(217, 143, 163, 0.10);
+}
+.flower-cursor.on-book .fc-sparkle { opacity: 1; transform: scale(1) rotate(90deg); }
+
+/* ---------- click ---------- */
+.flower-cursor.is-down .fc-scale {
+  transform: translate(-50%, -50%) scale(0.82) rotate(-8deg);
+  filter: brightness(0.9);
+}
+.flower-cursor.is-up .fc-scale { animation: fcPop 220ms cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes fcPop {
+  0%   { transform: translate(-50%, -50%) scale(0.9); }
+  40%  { transform: translate(-50%, -50%) scale(1.08); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ---------- opened project (modal) — minimal editorial ---------- */
+.flower-cursor.cursor-modal-open .fc-flower { animation-duration: 6s; }
+.flower-cursor.cursor-modal-open .fc-scale { transform: translate(-50%, -50%) scale(0.85); }
+.flower-cursor.cursor-modal-open.is-hover .fc-scale {
+  transform: translate(-50%, -50%) scale(1.12) rotate(6deg);
+  filter: brightness(1.04);
+}
+.flower-cursor.cursor-modal-open .fc-ring {
+  border-color: rgba(217, 143, 163, 0.5);
+  background: transparent;
+}
+.flower-cursor.cursor-modal-open .fc-sparkle { opacity: 0 !important; }  /* no vintage sparkle in modern view */
+
+/* ---------- native cursor: hidden only once active, kept for text fields ---------- */
+html.flower-cursor-active,
+html.flower-cursor-active *:not(input):not(textarea):not([contenteditable="true"]) {
+  cursor: none;
+}
+input, textarea, [contenteditable="true"] { cursor: auto; }
+
+/* ---------- touch / coarse pointers: no custom cursor ---------- */
+@media (hover: none), (pointer: coarse) {
+  .flower-cursor { display: none; }
+}
+
+/* ---------- reduced motion: direct tracking, simple scale only ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .fc-flower { animation: none; }
+  .flower-cursor.is-up .fc-scale { animation: none; }
+  .fc-scale, .fc-ring, .fc-sparkle { transition: transform 120ms ease, opacity 120ms ease, filter 120ms ease; }
+}
