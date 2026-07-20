@@ -1093,58 +1093,99 @@ h2 {
 /* ---------- Contact ---------- */
 .contact {
   position: relative;
-  padding: 140px 0 0;
+  min-height: 72vh;
   overflow: hidden;
-  background: linear-gradient(180deg, transparent, rgba(240, 197, 183, 0.5) 55%, rgba(238, 180, 170, 0.65));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;    /* pulls the words down into the middle */
+  padding: clamp(5rem, 9vh, 7rem) 0 clamp(6rem, 11vh, 8rem);
+  /* warm fallback shown until the video loads (and if it can't) */
+  background: linear-gradient(to bottom, #F8EEEA 0%, #F3DCD9 55%, #D9ACA9 100%);
 }
-.sunset-scene { position: absolute; inset: 0; pointer-events: none; }
-.ss-sun {
+/* floral motion video background (covers the whole section) */
+.contact-bg-video {
   position: absolute;
-  left: 50%; bottom: 4%;
-  transform: translateX(-50%);
-  width: 220px; height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #FFE3BC 0%, #F6BFA0 55%, transparent 72%);
-  opacity: 0.85;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
 }
-.ss-cloud { position: absolute; background: rgba(255, 250, 246, 0.75); border-radius: 999px; filter: blur(1px); }
-.ss-cloud.sc1 { width: 180px; height: 36px; left: 12%; top: 30%; }
-.ss-cloud.sc2 { width: 130px; height: 28px; right: 14%; top: 42%; }
-.ss-hill { position: absolute; left: -10%; right: -10%; border-radius: 50% 50% 0 0; }
-.ss-hill.h1 { height: 180px; bottom: -70px; background: rgba(201, 138, 147, 0.35); }
-.ss-hill.h2 { height: 120px; bottom: -50px; background: rgba(109, 76, 111, 0.3); }
-.ss-observatory { position: absolute; right: 16%; bottom: 60px; width: 74px; height: 70px; }
-.ss-observatory i { position: absolute; display: block; }
-.ss-dome { top: 0; left: 5px; width: 64px; height: 34px; border-radius: 34px 34px 0 0; background: #B79FCB; }
-.ss-slit { top: 2px; left: 33px; width: 7px; height: 30px; background: #FAF3EC; border-radius: 4px; }
-.ss-base { bottom: 0; left: 0; width: 74px; height: 38px; background: #E8CBC4; border-radius: 6px 6px 0 0; }
-.ss-flowers { position: absolute; bottom: 26px; left: 10%; display: flex; gap: 26px; }
-.ss-flowers i { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); box-shadow: 0 14px 0 -3px var(--sage); opacity: 0.8; }
-.ss-flowers i:nth-child(2n) { background: var(--lavender-deep); }
-.ss-flowers i:nth-child(3n) { background: var(--dusty-pink); }
+/* warm readability overlay — opaque-ish ivory up top (dark plum text stays
+   readable), letting the flowers show through the middle/lower area */
+.contact-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 238, 234, 0.82) 0%,
+    rgba(245, 226, 223, 0.66) 40%,
+    rgba(233, 196, 197, 0.42) 66%,
+    rgba(150, 110, 118, 0.30) 86%,
+    rgba(60, 46, 52, 0.40) 100%
+  );
+}
 
 .contact-inner {
   position: relative;
-  max-width: 760px;
+  z-index: 5;                 /* content stays above the grass */
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px 120px;
+  padding: 0 40px;
   text-align: center;
 }
-.contact-sub { margin-top: 14px; color: var(--ink-soft); font-size: 16.5px; }
+.contact h2 {
+  white-space: nowrap;        /* one line on desktop */
+  font-size: clamp(2.2rem, 3.7vw, 4rem);
+  color: #514653;
+}
+.contact-sub {
+  margin-top: 14px;
+  color: #786D7E;
+  font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+  white-space: nowrap;        /* one line on desktop */
+}
 .contact-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;            /* one row on desktop; wraps only if cramped */
   gap: 14px;
   justify-content: center;
   margin-top: 30px;
 }
+/* Contact buttons — scoped so the global .btn-* used elsewhere is unchanged */
+.contact .btn-primary {
+  background: #D98FA3;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(217, 143, 163, 0.3);
+}
+.contact .btn-primary:hover { background: #CD7E95; box-shadow: 0 12px 30px rgba(217, 143, 163, 0.4); }
+.contact .btn-ghost {
+  background: rgba(255, 248, 246, 0.72);
+  border: 1px solid rgba(203, 137, 150, 0.55);
+  color: #8E5364;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.contact .btn-ghost:hover {
+  background: rgba(255, 248, 246, 0.9);
+  border-color: rgba(203, 137, 150, 0.75);
+  color: #8E5364;
+}
 .footer {
-  position: relative;
+  position: absolute;
+  left: 0; right: 0; bottom: 16px;
+  z-index: 5;
   text-align: center;
   font-family: var(--font-mono);
   font-size: 12.5px;
-  color: rgba(109, 76, 111, 0.75);
-  padding: 26px 20px 30px;
+  color: rgba(255, 247, 244, 0.92);   /* readable over the dark grass */
+  text-shadow: 0 1px 6px rgba(51, 64, 55, 0.55);
+  padding: 0 20px;
 }
 
 /* ---------- Book modal ---------- */
@@ -1436,6 +1477,8 @@ h2 {
 @media (max-width: 1024px) {
   .about-grid { grid-template-columns: 1fr; gap: 44px; }
   .about-copy p { max-width: 62ch; }
+  /* let the Contact heading/description wrap naturally below desktop */
+  .contact h2, .contact-sub { white-space: normal; }
 }
 
 @media (max-width: 720px) {
@@ -1519,7 +1562,7 @@ h2 {
   .skill-shelves { padding: 0 24px; }
   .skill-group { grid-template-columns: 1fr; gap: 8px; padding: 16px 2px; }
 
-  .contact-inner { padding: 0 24px 100px; }
+  .contact-inner { padding: 0 24px; }
   .contact-links { flex-direction: column; align-items: stretch; }
   .contact-links .btn { text-align: center; }
 

@@ -1,0 +1,112 @@
+/* ==========================================================
+   About Me — draggable leaf + falling-text interaction.
+   Scoped to #about. The real paragraphs stay in the DOM for
+   screen readers; falling words are visual-only duplicates.
+   ========================================================== */
+
+/* overlay layers injected into #about (position: relative) */
+.about-fall,
+.about-leaf-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.about-fall { overflow: hidden; z-index: 2; }          /* clips words before the gallery */
+.about-leaf-layer { overflow: visible; z-index: 3; }
+
+/* --- draggable leaf --- */
+.about-leaf {
+  position: absolute;
+  padding: 9px;                 /* grows the hit area to ~46px for touch */
+  border: 0;
+  background: none;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;           /* no page scroll while dragging the leaf */
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  line-height: 0;
+}
+.about-leaf:active { cursor: grabbing; }
+.about-leaf svg { width: 28px; height: 28px; display: block; overflow: visible; }
+.leaf-swing { transform-box: fill-box; transform-origin: 50% 100%; display: block; }
+.about-leaf.idle .leaf-swing { animation: leafBreeze 3.6s ease-in-out infinite alternate; }
+@keyframes leafBreeze {
+  from { transform: rotate(-3deg) translateY(0); }
+  to   { transform: rotate(3deg)  translateY(-2px); }
+}
+.about-leaf.released { transition: left 1.4s cubic-bezier(0.3, 0, 0.5, 1), top 1.4s cubic-bezier(0.3, 0, 0.5, 1), opacity 1.1s ease; }
+.about-leaf:focus-visible { outline: 2px solid #D98FA3; outline-offset: 4px; border-radius: 10px; }
+
+/* --- helper text --- */
+.about-hint {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #9A929A;
+  white-space: nowrap;
+  transform: translate(-50%, 0);
+  transition: opacity 260ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+.about-hint.gone { opacity: 0; }
+
+/* --- tether connecting the paragraph end to the leaf --- */
+.about-tether {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.about-tether.show { opacity: 1; }
+.about-tether path {
+  fill: none;
+  stroke: #C98A98;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 2.5 4;
+}
+
+/* --- falling words (visual only) --- */
+.about-word {
+  position: absolute;
+  white-space: pre;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* --- reset control --- */
+.about-reset {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: #D98FA3;
+  background: rgba(255, 251, 248, 0.75);
+  border: 1px solid rgba(217, 143, 163, 0.45);
+  border-radius: 999px;
+  padding: 6px 15px;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition: opacity 300ms ease;
+  z-index: 5;
+}
+.about-reset[hidden] { display: none; }
+.about-reset:hover { background: #fff; border-color: rgba(217, 143, 163, 0.75); }
+.about-reset:focus-visible { outline: 2px solid #D98FA3; outline-offset: 2px; }
+
+/* the real copy is hidden while its words fall (transition set inline in JS:
+   instant for the physics swap, a soft fade for reduced-motion / reset) */
+.about-copy.about-falling { opacity: 0; }
+
+/* --- reduced motion: no idle breeze (fall physics is skipped in JS) --- */
+@media (prefers-reduced-motion: reduce) {
+  .about-leaf.idle .leaf-swing { animation: none; }
+}

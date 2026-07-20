@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="cursor.css" />
   <link rel="stylesheet" href="flowers.css" />
   <link rel="stylesheet" href="gallery.css" />
+  <link rel="stylesheet" href="about.css" />
 </head>
 <body>
 
@@ -227,21 +228,20 @@
 
     <!-- ───────── Contact ───────── -->
     <section id="contact" class="contact" aria-labelledby="contactTitle">
-      <div class="sunset-scene" aria-hidden="true">
-        <div class="ss-sun"></div>
-        <div class="ss-cloud sc1"></div><div class="ss-cloud sc2"></div>
-        <div class="ss-hill h1"></div><div class="ss-hill h2"></div>
-        <div class="ss-observatory"><i class="ss-dome"></i><i class="ss-slit"></i><i class="ss-base"></i></div>
-        <div class="ss-flowers"><i></i><i></i><i></i><i></i><i></i></div>
-      </div>
+      <!-- floral motion video background (decorative) -->
+      <video class="contact-bg-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
+        <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/flowers_motion_r54og5.webm" type="video/webm" />
+        <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/flowers_motion_r54og5.mp4" type="video/mp4" />
+      </video>
+      <div class="contact-overlay" aria-hidden="true"></div>
 
       <div class="contact-inner">
         <p class="kicker">05 — CONTACT</p>
         <h2 id="contactTitle" class="reveal">Let’s build something meaningful together.</h2>
         <p class="contact-sub reveal d1">Open to conversations about AI, data, and interesting problems.</p>
         <div class="contact-links reveal d2">
-          <a class="btn btn-primary" href="mailto:ymao@uchicago.edu">ymao@uchicago.edu</a>
-          <a class="btn btn-ghost" href="mailto:yiningmaomao@gmail.com">yiningmaomao@gmail.com</a>
+          <a class="btn btn-primary" href="mailto:ymao@uchicago.edu">School Email</a>
+          <a class="btn btn-ghost" href="mailto:yiningmaomao@gmail.com">Personal Email</a>
           <a class="btn btn-ghost" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a class="btn btn-ghost" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
@@ -280,5 +280,6 @@
   <script src="js/cursor.js" defer></script>
   <script src="js/flowers.js" defer></script>
   <script type="module" src="js/gallery.js"></script>
+  <script src="js/aboutText.js" defer></script>
 </body>
 </html>
