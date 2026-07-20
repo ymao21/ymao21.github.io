@@ -4,6 +4,17 @@
    Edit the variables below to change the palette.
    ========================================================== */
 
+/* Soft rounded "plush" display face for the hero headline only.
+   Super Maples (Freeware) — fontspace.com/super-maples-font-f153140
+   Falls back to a rounded system stack if the file is missing. */
+@font-face {
+  font-family: 'Super Maples';
+  src: url('fonts/super-maples-font/SuperMaples-2vR2w.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --cream: #FAF3EC;
   --blush: #F6E4E0;
@@ -25,6 +36,7 @@
   --font-head: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Super Maples', ui-rounded, 'Arial Rounded MT Bold', 'Hiragino Maru Gothic ProN', system-ui, sans-serif;
   --ease-spring: cubic-bezier(0.34, 1.4, 0.44, 1);
   --ease-soft: cubic-bezier(0.25, 0.7, 0.3, 1);
 }
@@ -240,25 +252,103 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 110px 5vw 60px;
+  align-items: center;
+  padding: 96px 6vw;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* Cinematic looping video background — double-buffered crossfade.
+   Full-bleed so the hero content sits centered in the middle of the footage.
+   Both videos are identical (width/height 100%) and perfectly overlapping. */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
 }
+/* Two perfectly-overlapping videos; only opacity is ever animated */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: opacity;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(1.02) saturate(0.92) contrast(0.98);
+}
+.hero-video.is-active { opacity: 1; }
+
+/* Single persistent treatment layer above BOTH videos — never remounts,
+   so there is no brightness/colour flash during a crossfade. */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(251, 246, 243, 0.25) 0%,
+    rgba(251, 246, 243, 0.08) 35%,
+    rgba(251, 246, 243, 0.02) 65%,
+    rgba(251, 246, 243, 0.12) 100%
+  );
+}
+/* Faint radial colour accents (localised, low opacity — no full-screen haze) */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 78% 40%, rgba(233, 181, 190, 0.12), transparent 40%),
+    radial-gradient(circle at 88% 78%, rgba(150, 118, 213, 0.08), transparent 32%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { transition: opacity 300ms ease; }
+}
+
 .constellation {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.75;
+  z-index: 1;
+  opacity: 0.5;
+  pointer-events: none;
 }
 .hero-inner {
   position: relative;
-  display: grid;
-  grid-template-columns: 45fr 55fr;
-  gap: 48px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  max-width: 1280px;
+  text-align: center;
+  max-width: 1080px;
   margin: 0 auto;
   width: 100%;
+}
+/* No card — hero content sits directly on the landscape */
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 760px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .eyebrow {
   font-family: var(--font-mono);
@@ -266,83 +356,80 @@ h2 {
   letter-spacing: 0.22em;
   color: var(--dusty-rose);
   margin-bottom: 18px;
+  text-shadow: 0 1px 10px rgba(255, 250, 248, 0.65);
 }
-h1 {
-  font-family: var(--font-head);
-  font-size: clamp(40px, 5.4vw, 62px);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.08;
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 92px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
   margin-bottom: 22px;
+  color: #514653;
+  text-shadow: 0 2px 18px rgba(255, 250, 248, 0.5);
 }
 .grad-name {
-  background: linear-gradient(92deg, var(--grad-orange), var(--grad-purple));
+  background: linear-gradient(90deg, #EF7E60 0%, #CB8996 52%, #9676D5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .hero-desc {
-  font-size: 17px;
-  color: var(--ink-soft);
-  max-width: 480px;
+  font-family: var(--font-body);
+  font-size: clamp(16px, 2vw, 18px);
+  color: #6F6475;
+  max-width: 640px;
+  line-height: 1.7;
   margin-bottom: 30px;
+  text-shadow: 0 1px 10px rgba(255, 250, 248, 0.65);
 }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 26px; }
 .hero-social {
   font-size: 14px;
   font-weight: 500;
-  color: var(--ink-soft);
+  color: #6F6475;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   align-items: center;
+  text-shadow: 0 1px 10px rgba(255, 250, 248, 0.65);
 }
 .hero-social a { border-bottom: 1px solid rgba(201,138,147,0.4); transition: color 0.2s, border-color 0.2s; }
 .hero-social a:hover { color: var(--coral); border-color: var(--coral); }
 .dot-sep { color: var(--dusty-pink); }
 
-.hero-scene { min-width: 0; }
-.scene-frame {
-  position: relative;
-  border-radius: 28px;
-  overflow: hidden;
-  aspect-ratio: 10 / 8.5;
-  max-height: 78vh;
-  background: linear-gradient(180deg, #F7DDE3 0%, #F3D5CE 45%, #F6E3D8 75%, #FAEFE4 100%);
-  box-shadow:
-    0 24px 70px rgba(201, 138, 147, 0.35),
-    0 6px 22px rgba(140, 74, 82, 0.16),
-    0 0 0 1px rgba(255, 255, 255, 0.55) inset;
+/* Hero buttons — scoped so the Contact section keeps its own styling */
+.hero .btn-primary {
+  background: #D98FA3;
+  color: #FFFFFF;
+  padding: 16px 36px;
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(217, 143, 163, 0.30);
+  transition: transform 0.3s var(--ease-soft), background 0.3s, box-shadow 0.3s;
 }
-#castleCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
+.hero .btn-primary:hover {
+  background: #CD7E95;
+  transform: scale(1.03);
+  box-shadow: 0 14px 34px rgba(217, 143, 163, 0.38);
 }
-
-/* CSS fallback castle if WebGL is unavailable */
-.scene-fallback { position: absolute; inset: 0; }
-.fb-sun {
-  position: absolute; top: 12%; right: 14%;
-  width: 74px; height: 74px; border-radius: 50%;
-  background: radial-gradient(circle, #FFE1B8 0%, #F7C59F 60%, transparent 72%);
-  box-shadow: 0 0 60px 24px rgba(247, 197, 159, 0.55);
+.hero .btn-ghost {
+  color: #9A5969;
+  padding: 16px 34px;
+  border: 1.5px solid rgba(203, 137, 150, 0.65);
+  background: transparent;
+  transition: transform 0.3s var(--ease-soft), background 0.3s, color 0.3s, border-color 0.3s;
 }
-.fb-castle { position: absolute; left: 50%; bottom: 24%; transform: translateX(-50%); width: 220px; height: 190px; }
-.fb-castle i { position: absolute; bottom: 0; display: block; }
-.fb-tower { width: 42px; background: linear-gradient(180deg, #F2C4C9, #E3A6AC); border-radius: 10px 10px 4px 4px; }
-.fb-tower.t1 { left: 6px; height: 150px; }
-.fb-tower.t2 { right: 6px; height: 120px; }
-.fb-keep { left: 58px; width: 104px; height: 96px; background: linear-gradient(180deg, #F6D6D0, #EBB9B4); border-radius: 12px 12px 4px 4px; }
-.fb-dome { left: 84px; bottom: 92px; width: 52px; height: 30px; background: #C3B2D9; border-radius: 26px 26px 0 0; }
-.fb-cloud { position: absolute; background: rgba(255, 252, 250, 0.9); border-radius: 999px; }
-.fb-cloud.c1 { width: 120px; height: 34px; left: 8%; bottom: 18%; }
-.fb-cloud.c2 { width: 90px; height: 26px; right: 10%; bottom: 34%; }
+.hero .btn-ghost:hover {
+  background: rgba(255, 245, 247, 0.35);
+  border-color: rgba(203, 137, 150, 0.65);
+  color: #9A5969;
+  transform: scale(1.03);
+}
 
 .flower-hint {
   position: absolute;
+  z-index: 10;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
@@ -353,6 +440,7 @@ h1 {
 }
 .hero-fade {
   position: absolute;
+  z-index: 2;
   left: 0; right: 0; bottom: -1px;
   height: 120px;
   background: linear-gradient(180deg, transparent, rgba(248, 233, 228, 0.9));
@@ -1206,10 +1294,6 @@ h1 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 36px; }
-  .hero { padding-top: 120px; }
-  .hero-copy { text-align: left; }
-  .scene-frame { max-height: 60vh; }
   .about-grid { grid-template-columns: 1fr; gap: 44px; }
   .about-copy p { max-width: 62ch; }
 }
@@ -1245,9 +1329,11 @@ h1 {
   .nav-links.open { transform: none; }
 
   .section-head { padding: 0 24px; }
-  .hero { padding: 100px 6vw 70px; }
+  .hero { padding: 84px 5vw; }
+  .hero-copy { padding: 0; }
   .hero-desc { font-size: 16px; }
-  .scene-frame { border-radius: 22px; aspect-ratio: 10 / 9; }
+  /* keep the most important part of the landscape framed on narrow screens */
+  .hero-video { object-position: 60% center; }
   .drift-line { height: 70px; }
 
   .projects { padding-top: 80px; }

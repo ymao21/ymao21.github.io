@@ -5,7 +5,7 @@
    3. Global flower-planting layer
    4. Project bookshelf (data-driven) + open-book modal
    5. About photo collage + lightbox
-   6. Lazy-loaded Three.js castle scene
+   6. Cinematic hero video loop
    ========================================================== */
 
 import { projects } from './js/data/projects.js';
@@ -171,7 +171,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
 
   document.addEventListener('click', (e) => {
     // never plant on interactive or media elements
-    if (e.target.closest('a, button, input, textarea, select, label, canvas, dialog, [role="dialog"], .book, .photo-item, .nav, .scene-frame, .shelf-scroll, .collage, .tl-item')) return;
+    if (e.target.closest('a, button, input, textarea, select, label, canvas, dialog, [role="dialog"], .book, .photo-item, .nav, .hero-copy, .shelf-scroll, .collage, .tl-item')) return;
     // skip drags and text selection
     if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 8) return;
     const sel = window.getSelection();
@@ -635,36 +635,108 @@ document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
   });
 })();
 
-/* ---------- 7. Lazy-load the castle scene ---------- */
-(function castleLoader() {
-  const frame = document.getElementById('sceneFrame');
-  const canvas = document.getElementById('castleCanvas');
-  const fallback = document.getElementById('sceneFallback');
+/* ---------- 7. Cinematic hero video — double-buffered crossfade ----------
+   Two overlapping <video> elements alternate as active / standby. About
+   0.8s before the active clip ends we start the standby from 0 and swap the
+   .is-active class on both in the same frame. Because both use the identical
+   opacity transition (same easing), their opacities sum to ~1 throughout the
+   crossfade, so the page background is never exposed (no white/black/pink
+   flash). Only opacity is ever animated; filters/position never change.
+   All state is held in closure variables (no re-render churn); a single rAF
+   loop only *reads* playback time. */
+(function heroVideo() {
+  const media = document.getElementById('heroMedia');
+  if (!media) return;
+  const videos = Array.from(media.querySelectorAll('.hero-video'));
+  if (videos.length < 2) return;
 
-  function showFallback() {
-    canvas.style.display = 'none';
-    fallback.hidden = false;
+  const CROSSFADE_LEAD = 0.8;   // seconds before end to start the next clip
+  const FADE_MS = 850;          // >= CSS transition (800ms) before we reset outgoing
+  const READY_FUTURE = 3;       // HTMLMediaElement.HAVE_FUTURE_DATA
+
+  let activeIdx = 0;            // ref: which video is currently shown
+  let transitioning = false;   // ref: guard against duplicate transitions
+  let rafId = null;            // ref: single monitoring loop
+  let resetTimer = null;
+
+  const safePlay = (v) => {
+    v.playbackRate = 1;
+    const p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {}); // ignore autoplay rejection
+  };
+
+  videos.forEach((v) => { v.playbackRate = 1; v.loop = false; });
+
+  /* ----- reduced motion: keep one clip looping, no crossfade churn ----- */
+  if (reducedMotion.matches) {
+    const v = videos[0];
+    v.loop = true;
+    v.classList.add('is-active');
+    const revealRM = () => v.classList.add('is-active');
+    if (v.readyState >= READY_FUTURE) safePlay(v);
+    else v.addEventListener('canplay', () => { safePlay(v); revealRM(); }, { once: true });
+    safePlay(v);
+    return;
   }
 
-  function webglAvailable() {
-    try {
-      const c = document.createElement('canvas');
-      return !!(c.getContext('webgl2') || c.getContext('webgl'));
-    } catch { return false; }
-  }
+  const beginCrossfade = (active, standby) => {
+    if (transitioning) return;
+    transitioning = true;
 
-  const io = new IntersectionObserver(([en]) => {
-    if (!en.isIntersecting) return;
-    io.disconnect();
-    if (!webglAvailable()) { showFallback(); return; }
-    import('./js/castle.js')
-      .then((m) => {
-        m.initCastle(canvas, frame);
-        // safety net: if no frame has actually rendered shortly after
-        // init, fall back to the CSS illustration
-        setTimeout(() => { if (!canvas.dataset.rendered) showFallback(); }, 4000);
-      })
-      .catch((err) => { console.warn('Castle scene unavailable:', err); showFallback(); });
-  }, { rootMargin: '200px' });
-  io.observe(frame);
+    const run = () => {
+      try { standby.currentTime = 0; } catch { /* noop */ }
+      safePlay(standby);
+      // Swap both classes in the same frame → transitions start together →
+      // combined opacity stays ~1 (identical easing) → no background flash.
+      requestAnimationFrame(() => {
+        standby.classList.add('is-active');
+        active.classList.remove('is-active');
+      });
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        // outgoing is now fully hidden — safe to pause + rewind for reuse
+        active.pause();
+        try { active.currentTime = 0; } catch { /* noop */ }
+        activeIdx = 1 - activeIdx;
+        transitioning = false;
+      }, FADE_MS);
+    };
+
+    if (standby.readyState >= READY_FUTURE) {
+      run();
+    } else {
+      standby.load();
+      standby.addEventListener('canplay', run, { once: true });
+    }
+  };
+
+  const tick = () => {
+    const active = videos[activeIdx];
+    const standby = videos[1 - activeIdx];
+    const d = active.duration;
+    if (!transitioning && d && !Number.isNaN(d) && d > CROSSFADE_LEAD * 2) {
+      if (active.currentTime >= d - CROSSFADE_LEAD) beginCrossfade(active, standby);
+    }
+    rafId = requestAnimationFrame(tick);
+  };
+
+  /* ----- reveal the first clip only once it can actually play ----- */
+  const first = videos[0];
+  const standby = videos[1];
+  const start = () => {
+    first.classList.add('is-active');   // fades in from the warm ivory background
+    safePlay(first);
+    standby.pause();
+    try { standby.currentTime = 0; } catch { /* noop */ }
+    if (rafId === null) rafId = requestAnimationFrame(tick);
+  };
+  if (first.readyState >= READY_FUTURE) start();
+  else { first.addEventListener('canplay', start, { once: true }); safePlay(first); }
+
+  const cleanup = () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    clearTimeout(resetTimer);
+    videos.forEach((v) => v.pause());
+  };
+  window.addEventListener('pagehide', cleanup, { once: true });
 })();

@@ -34,6 +34,17 @@
 
     <!-- ───────── Hero ───────── -->
     <section id="hero" class="hero" aria-label="Introduction">
+      <!-- Cinematic looping video background — double-buffered crossfade (decorative) -->
+      <div class="hero-media" id="heroMedia" aria-hidden="true">
+        <video class="hero-video" muted autoplay playsinline preload="auto" disablepictureinpicture tabindex="-1">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4" />
+        </video>
+        <video class="hero-video" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-glow"></div>
+      </div>
       <canvas id="constellation" class="constellation" aria-hidden="true"></canvas>
 
       <div class="hero-inner">
@@ -42,7 +53,7 @@
           <h1 class="reveal d1">Hi, I’m <span class="grad-name">Yining</span>.</h1>
           <p class="hero-desc reveal d2">
             This is a small home for the things I’m building, learning, and
-            exploring—with data, AI, and curiosity. Here, you’ll find my
+            exploring with data, AI, and curiosity. Here, you’ll find my
             projects, experiences, and the ideas I’m exploring along the way.
           </p>
           <div class="hero-actions reveal d3">
@@ -55,20 +66,6 @@
             <a href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
             <span class="dot-sep" aria-hidden="true">·</span>
             <a href="mailto:ymao@uchicago.edu">Email</a>
-          </div>
-        </div>
-
-        <div class="hero-scene reveal d2">
-          <div class="scene-frame" id="sceneFrame">
-            <canvas id="castleCanvas" role="img"
-              aria-label="Decorative scene: a pink monument floating above soft clouds, with an impossible staircase loop that a tiny girl climbs forever."></canvas>
-            <div class="scene-fallback" id="sceneFallback" hidden aria-hidden="true">
-              <div class="fb-sun"></div>
-              <div class="fb-castle">
-                <i class="fb-tower t1"></i><i class="fb-tower t2"></i><i class="fb-keep"></i><i class="fb-dome"></i>
-              </div>
-              <div class="fb-cloud c1"></div><div class="fb-cloud c2"></div>
-            </div>
           </div>
         </div>
       </div>
