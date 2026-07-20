@@ -1,161 +1,670 @@
 /* ==========================================================
    Yining Mao — Portfolio Scripts
-   1. Navbar behavior (scroll style + mobile menu)
-   2. Scroll-reveal animations
-   3. Three.js particle background (with mouse parallax)
-   The Three.js part is wrapped in a safety check so the site
-   still works perfectly even if the CDN fails to load.
+   1. Navbar + scroll reveals
+   2. Constellation hero background
+   3. Global flower-planting layer
+   4. Project bookshelf (data-driven) + open-book modal
+   5. About photo collage + lightbox
+   6. Lazy-loaded Three.js castle scene
    ========================================================== */
 
-// Tell CSS that JavaScript is running (enables the fade-in animations).
-// Without this class, all content is simply visible — a safe fallback.
-document.body.classList.add('js');
+import { projects } from './js/data/projects.js';
+import { aboutPhotos } from './js/data/aboutPhotos.js';
 
-/* ---------- 1. Navbar behavior ---------- */
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const coarsePointer = window.matchMedia('(pointer: coarse)');
 
+/* ---------- 1. Navbar ---------- */
 const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 
-// add background to navbar once you scroll past the top
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
-});
+}, { passive: true });
 
-// mobile hamburger menu open/close
 navToggle.addEventListener('click', () => {
-  navToggle.classList.toggle('open');
-  navLinks.classList.toggle('open');
+  const open = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
 });
-
-// close the mobile menu when a link is clicked
 navLinks.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => {
     navToggle.classList.remove('open');
     navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
   });
 });
 
-/* ---------- 2. Scroll-reveal animations ---------- */
-// Elements with class "reveal" fade in when they enter the viewport.
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // animate only once
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
-
-document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-/* ---------- 3. Three.js particle background ---------- */
-// Only runs if the Three.js library loaded successfully from the CDN.
-
-if (typeof THREE !== 'undefined') {
-  try {
-    const canvas = document.getElementById('bg-canvas');
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(
-      60,                                    // field of view
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100
-    );
-    camera.position.z = 5;
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      alpha: true,       // transparent background so CSS shows through
-      antialias: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // keep it light
-
-    // --- Create the particles ---
-    // Fewer particles on mobile so it stays fast
-    const isMobile = window.innerWidth < 768;
-    const PARTICLE_COUNT = isMobile ? 700 : 1600;
-
-    const positions = new Float32Array(PARTICLE_COUNT * 3);
-    for (let i = 0; i < PARTICLE_COUNT * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 14; // spread in a 14-unit cube
+/* ---------- Scroll reveals ---------- */
+const revealIO = new IntersectionObserver((entries) => {
+  for (const en of entries) {
+    if (en.isIntersecting) {
+      en.target.classList.add('in');
+      revealIO.unobserve(en.target);
     }
-
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    // Purple particles
-    const material = new THREE.PointsMaterial({
-      color: 0x7c6cff,        // change particle color here
-      size: 0.025,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-
-    // A second, sparser teal layer for depth
-    const positions2 = new Float32Array(Math.floor(PARTICLE_COUNT / 3) * 3);
-    for (let i = 0; i < positions2.length; i++) {
-      positions2[i] = (Math.random() - 0.5) * 16;
-    }
-    const geometry2 = new THREE.BufferGeometry();
-    geometry2.setAttribute('position', new THREE.BufferAttribute(positions2, 3));
-    const material2 = new THREE.PointsMaterial({
-      color: 0x4ecdc4,        // teal accent particles
-      size: 0.02,
-      transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending
-    });
-    const particles2 = new THREE.Points(geometry2, material2);
-    scene.add(particles2);
-
-    // --- Mouse parallax ---
-    let mouseX = 0;
-    let mouseY = 0;
-    document.addEventListener('mousemove', (e) => {
-      // convert mouse position to a -0.5 to 0.5 range
-      mouseX = e.clientX / window.innerWidth - 0.5;
-      mouseY = e.clientY / window.innerHeight - 0.5;
-    });
-
-    // --- Animation loop ---
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-
-      // slow constant rotation
-      particles.rotation.y = t * 0.04;
-      particles2.rotation.y = -t * 0.03;
-      particles.rotation.x = Math.sin(t * 0.1) * 0.05;
-
-      // camera gently follows the mouse (the 0.05 = smoothing speed)
-      camera.position.x += (mouseX * 1.2 - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY * 1.2 - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // keep canvas sized to the window
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  } catch (err) {
-    // If anything goes wrong with the 3D background, the site still works.
-    console.warn('Three.js background disabled:', err);
   }
-}
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach((el) => revealIO.observe(el));
+
+/* ---------- 2. Constellation background ---------- */
+(function constellation() {
+  const canvas = document.getElementById('constellation');
+  const ctx = canvas.getContext('2d');
+  let nodes = [], cw = 0, ch = 0, raf = 0, running = false;
+  const mouse = { x: 0.5, y: 0.5 };
+  const DPR = Math.min(devicePixelRatio || 1, 1.5);
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    canvas.width = r.width * DPR;
+    canvas.height = r.height * DPR;
+    cw = r.width; ch = r.height;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const COUNT = cw < 720 ? 34 : 54;
+  for (let i = 0; i < COUNT; i++) {
+    nodes.push({
+      x: Math.random() * cw, y: Math.random() * ch,
+      vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12,
+      r: 1 + Math.random() * 1.7,
+      depth: 0.4 + Math.random() * 0.6,
+      hue: Math.random() < 0.75 ? [201, 138, 147] : [169, 155, 198]
+    });
+  }
+  window.addEventListener('pointermove', (e) => {
+    mouse.x = e.clientX / innerWidth; mouse.y = e.clientY / innerHeight;
+  }, { passive: true });
+
+  function draw() {
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, cw, ch);
+    const px = (mouse.x - 0.5) * 14, py = (mouse.y - 0.5) * 14;
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -20) n.x = cw + 20; if (n.x > cw + 20) n.x = -20;
+      if (n.y < -20) n.y = ch + 20; if (n.y > ch + 20) n.y = -20;
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+        if (d2 < 150 * 150) {
+          const alpha = (1 - Math.sqrt(d2) / 150) * 0.13;
+          ctx.strokeStyle = `rgba(${a.hue[0]},${a.hue[1]},${a.hue[2]},${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x + px * a.depth, a.y + py * a.depth);
+          ctx.lineTo(b.x + px * b.depth, b.y + py * b.depth);
+          ctx.stroke();
+        }
+      }
+    }
+    for (const n of nodes) {
+      ctx.fillStyle = `rgba(${n.hue[0]},${n.hue[1]},${n.hue[2]},${0.25 + n.depth * 0.3})`;
+      ctx.shadowColor = `rgba(${n.hue[0]},${n.hue[1]},${n.hue[2]},0.5)`;
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.arc(n.x + px * n.depth, n.y + py * n.depth, n.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+  function loop() { draw(); raf = requestAnimationFrame(loop); }
+
+  if (reducedMotion.matches) { draw(); return; }
+  const io = new IntersectionObserver(([en]) => {
+    if (en.isIntersecting && !running) { running = true; loop(); }
+    else if (!en.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
+  });
+  io.observe(canvas);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && running) { cancelAnimationFrame(raf); running = false; }
+    else if (!document.hidden && !running) {
+      const r = canvas.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) { running = true; loop(); }
+    }
+  });
+})();
+
+/* ---------- 3. Global flower planting ---------- */
+(function flowers() {
+  const layer = document.getElementById('flowerLayer');
+  const MAX = 36;
+  const planted = [];
+  const petalColors = ['#E8B4B8', '#E07A5F', '#F3E0D0', '#C3B2D9', '#C98A93', '#F0C7B8'];
+  const centerColors = ['#F7D9A8', '#FFF2E2', '#EFC3A4'];
+
+  function syncHeight() {
+    layer.style.height = document.documentElement.scrollHeight + 'px';
+  }
+  window.addEventListener('resize', syncHeight);
+  window.addEventListener('load', syncHeight);
+  syncHeight();
+
+  function makeFlowerSVG() {
+    const petal = petalColors[Math.floor(Math.random() * petalColors.length)];
+    const center = centerColors[Math.floor(Math.random() * centerColors.length)];
+    const petals = 5 + Math.floor(Math.random() * 2);
+    const stemH = 16 + Math.random() * 22;
+    const R = 9 + Math.random() * 5;
+    const leaf = Math.random() < 0.55;
+    let petalsMarkup = '';
+    for (let i = 0; i < petals; i++) {
+      const a = (i / petals) * Math.PI * 2;
+      petalsMarkup += `<ellipse cx="${Math.cos(a) * R * 0.62}" cy="${Math.sin(a) * R * 0.62}"
+        rx="${R * 0.58}" ry="${R * 0.38}" fill="${petal}"
+        transform="rotate(${(a * 180 / Math.PI)} ${Math.cos(a) * R * 0.62} ${Math.sin(a) * R * 0.62})"/>`;
+    }
+    const W = R * 2.6, H = R * 2.2 + stemH;
+    return `<svg width="${W}" height="${H}" viewBox="${-W / 2} ${-R * 1.4} ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,${R * 0.5} q ${Math.random() < 0.5 ? 3 : -3},${stemH * 0.5} 0,${stemH}" stroke="#9CAF97" stroke-width="2" fill="none" stroke-linecap="round"/>
+      ${leaf ? `<ellipse cx="${Math.random() < 0.5 ? 5 : -5}" cy="${R * 0.5 + stemH * 0.55}" rx="5" ry="2.6" fill="#9CAF97" opacity="0.9"/>` : ''}
+      <g>${petalsMarkup}<circle r="${R * 0.34}" fill="${center}"/></g>
+    </svg>`;
+  }
+
+  let downPos = null;
+  document.addEventListener('pointerdown', (e) => { downPos = { x: e.clientX, y: e.clientY }; }, { passive: true });
+
+  document.addEventListener('click', (e) => {
+    // never plant on interactive or media elements
+    if (e.target.closest('a, button, input, textarea, select, label, canvas, dialog, [role="dialog"], .book, .photo-item, .nav, .scene-frame, .shelf-scroll, .collage, .tl-item')) return;
+    // skip drags and text selection
+    if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 8) return;
+    const sel = window.getSelection();
+    if (sel && sel.type === 'Range' && String(sel).length) return;
+
+    const fl = document.createElement('div');
+    fl.className = 'flower';
+    fl.style.setProperty('--rot', (Math.random() * 14 - 7).toFixed(1) + 'deg');
+    fl.style.left = e.pageX + 'px';
+    fl.style.top = 'auto';
+    const scale = 0.8 + Math.random() * 0.7;
+    fl.style.width = 'auto';
+    fl.innerHTML = makeFlowerSVG();
+    const svg = fl.firstElementChild;
+    svg.style.display = 'block';
+    svg.style.transform = `scale(${scale})`;
+    // anchor bottom of stem at click point (document coords)
+    fl.style.top = e.pageY + 'px';
+    fl.style.marginTop = -parseFloat(svg.getAttribute('height')) * scale + 'px';
+    layer.appendChild(fl);
+    planted.push(fl);
+    if (planted.length > MAX) {
+      const old = planted.shift();
+      old.classList.add('leaving');
+      setTimeout(() => old.remove(), 650);
+    }
+    syncHeight();
+  });
+})();
+
+/* ---------- 4. Bookshelf ---------- */
+(function bookshelf() {
+  const shelf = document.getElementById('shelf');
+  const info = document.getElementById('bookInfo');
+  const modal = document.getElementById('bookModal');
+  const bmKicker = document.getElementById('bmKicker');
+  const bmTitle = document.getElementById('bmTitle');
+  const bmSubtitle = document.getElementById('bmSubtitle');
+  const bmBadge = document.getElementById('bmBadge');
+  const bmPage = document.getElementById('bmPage');
+  const bmPrev = document.getElementById('bmPrev');
+  const bmNext = document.getElementById('bmNext');
+  const bmIndicator = document.getElementById('bmIndicator');
+  const bmBook = modal.querySelector('.bm-book');
+
+  // featured books in the center of the shelf
+  const featured = projects.filter((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
+  const half = Math.ceil(rest.length / 2);
+  const ordered = [...rest.slice(0, half), ...featured, ...rest.slice(half)];
+
+  const leans = [0, -1.6, 0, 0, 1.8, 0, -1.2, 0, 0, 1.4, 0, -1.5, 0];
+
+  ordered.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'book';
+    b.type = 'button';
+    b.setAttribute('role', 'listitem');
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.setAttribute('aria-label', `${p.title} — open project details`);
+    b.dataset.slug = p.slug;
+    b.style.setProperty('--w', p.dimensions.width + 'px');
+    b.style.setProperty('--h', p.dimensions.height + 'px');
+    b.style.setProperty('--cover', p.coverColor);
+    b.style.setProperty('--accent', p.accentColor);
+    b.style.setProperty('--lean', (leans[i % leans.length] || 0) + 'deg');
+    b.innerHTML = `
+      <span class="book-spine">
+        ${p.featured ? '<span class="spine-star" aria-hidden="true">✦</span>' : ''}
+        <span class="spine-title">${p.spineTitle}</span>
+        <span class="spine-author">YINING MAO</span>
+      </span>
+      <span class="book-cover" aria-hidden="true">
+        <span class="cover-title">${p.title}</span>
+        <span class="cover-sub">${p.subtitle}</span>
+        ${p.badge ? `<span class="cover-badge">🏆 ${p.badge}</span>` : ''}
+        <span class="cover-stack">${p.stack.slice(0, 4).join(' · ')}</span>
+        <span class="cover-author">YINING MAO</span>
+      </span>`;
+    shelf.appendChild(b);
+
+    // open the cover toward whichever side has more viewport space
+    const pickCoverSide = () => {
+      const r = b.getBoundingClientRect();
+      b.classList.toggle('open-left',
+        r.right + 220 > document.documentElement.clientWidth && r.left - 220 > 0);
+    };
+
+    const showInfo = () => {
+      pickCoverSide();
+      info.innerHTML = `
+        ${p.badge ? `<span class="bi-badge">🏆 ${p.badge}</span><br>` : ''}
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="bi-tags">${p.stack.map((t) => `<span>${t}</span>`).join('')}</div>
+        <button class="bi-open" type="button">View Project →</button>`;
+      info.classList.add('show');
+      info.querySelector('.bi-open').addEventListener('click', () => openBook(p, b));
+      const prev = b.previousElementSibling, next = b.nextElementSibling;
+      prev && prev.classList.add('shift-left');
+      next && next.classList.add('shift-right');
+    };
+    const hideInfo = () => {
+      shelf.querySelectorAll('.shift-left, .shift-right').forEach((el) =>
+        el.classList.remove('shift-left', 'shift-right'));
+    };
+
+    b.addEventListener('mouseenter', showInfo);
+    b.addEventListener('mouseleave', hideInfo);
+    b.addEventListener('focus', showInfo);
+    b.addEventListener('blur', hideInfo);
+    b.addEventListener('click', () => {
+      // on touch devices, first tap previews the cover; second tap opens
+      if (coarsePointer.matches && !b.classList.contains('previewed')) {
+        shelf.querySelectorAll('.previewed').forEach((el) => el.classList.remove('previewed'));
+        b.classList.add('previewed');
+        showInfo();
+        return;
+      }
+      openBook(p, b);
+    });
+  });
+
+  /* ----- open-book modal ----- */
+  let activeBook = null;
+  let pages = [];
+  let pageIdx = 0;
+
+  function buildPages(p) {
+    const list = [];
+    list.push({
+      title: 'OVERVIEW',
+      html: `<p class="bm-lede">${p.subtitle}</p>
+        ${p.badge ? `<span class="bm-callout">🏆 ${p.badge}</span>` : ''}
+        <p>${p.description}</p>
+        ${p.role ? `<p><strong>Role:</strong> ${p.role}</p>` : ''}
+        ${p.impact ? `<p><strong>Impact:</strong> ${p.impact}</p>` : ''}
+        <div class="bm-tags">${p.stack.slice(0, 5).map((t) => `<span>${t}</span>`).join('')}</div>`
+    });
+    list.push({
+      title: 'TECHNOLOGY STACK',
+      html: `<div class="bm-tags">${p.stack.map((t) => `<span>${t}</span>`).join('')}</div>`
+    });
+    const links = [
+      `<a class="bm-link" href="${p.github}" target="_blank" rel="noopener noreferrer">View GitHub ↗</a>`
+    ];
+    if (p.liveDemo) links.push(`<a class="bm-link" href="${p.liveDemo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>`);
+    (p.articleLinks || []).forEach((a) =>
+      links.push(`<a class="bm-link" href="${a.url}" target="_blank" rel="noopener noreferrer">${a.label} ↗</a>`));
+    list.push({ title: 'LINKS', html: links.join('<br>') });
+    return list;
+  }
+
+  function renderPage() {
+    const pg = pages[pageIdx];
+    bmPage.innerHTML = `<h4>${pg.title}</h4>${pg.html}`;
+    bmIndicator.textContent = `Page ${pageIdx + 1} of ${pages.length}`;
+    bmPrev.disabled = pageIdx === 0;
+    bmNext.disabled = pageIdx === pages.length - 1;
+  }
+
+  function openBook(p, bookEl) {
+    activeBook = bookEl;
+    pages = buildPages(p);
+    pageIdx = 0;
+    bmKicker.textContent = 'FROM THE LIBRARY OF YINING MAO';
+    bmTitle.textContent = p.title;
+    bmSubtitle.textContent = p.subtitle;
+    if (p.badge) { bmBadge.hidden = false; bmBadge.textContent = `🏆 ${p.badge}`; } else { bmBadge.hidden = true; }
+    bmBook.style.setProperty('--bm-cover', p.coverColor);
+    bmBook.style.setProperty('--bm-accent', p.accentColor);
+    const r = bookEl.getBoundingClientRect();
+    bmBook.style.setProperty('--bm-origin', `${((r.left + r.width / 2) / innerWidth) * 100}% ${((r.top + r.height / 2) / innerHeight) * 100}%`);
+    renderPage();
+    modal.hidden = false;
+    modal.classList.remove('closing');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.bm-close').focus();
+  }
+
+  function closeBook() {
+    modal.classList.add('closing');
+    const done = () => {
+      modal.hidden = true;
+      modal.classList.remove('closing');
+      document.body.style.overflow = '';
+      if (activeBook) { activeBook.classList.remove('previewed'); activeBook.focus(); }
+    };
+    if (reducedMotion.matches) setTimeout(done, 250);
+    else setTimeout(done, 420);
+  }
+
+  bmPrev.addEventListener('click', () => { if (pageIdx > 0) { pageIdx--; renderPage(); } });
+  bmNext.addEventListener('click', () => { if (pageIdx < pages.length - 1) { pageIdx++; renderPage(); } });
+  modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeBook));
+
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); closeBook(); return; }
+    if (e.key === 'ArrowLeft' && pageIdx > 0) { pageIdx--; renderPage(); }
+    if (e.key === 'ArrowRight' && pageIdx < pages.length - 1) { pageIdx++; renderPage(); }
+    if (e.key === 'Tab') {
+      // trap focus inside the dialog
+      const focusables = modal.querySelectorAll('button:not(:disabled), a[href], [tabindex="0"]');
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // clear mobile preview state when tapping elsewhere
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.book') && !e.target.closest('.book-info')) {
+      shelf.querySelectorAll('.previewed').forEach((el) => el.classList.remove('previewed'));
+    }
+  });
+})();
+
+/* ---------- 5. About collage + lightbox ---------- */
+(function collage() {
+  const wrap = document.getElementById('collage');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCaption = document.getElementById('lbCaption');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  // loose collage slots per photo index (desktop; mobile layout is pure CSS):
+  // { l, t, w: % positions/size, z: stacking, pr: radius, rot: deg, enter, depth }
+  const slots = [
+    { l: '0%', t: '0%', w: '52%', z: 2, pr: 18, rot: -0.8, enter: 'enter-feature', depth: 0.5 },
+    { l: '47%', t: '7%', w: '54%', z: 3, pr: 14, rot: 1.1, enter: 'enter-right', depth: 1.0 },
+    { l: '66%', t: '35%', w: '27%', z: 4, pr: 14, rot: -1.4, enter: 'enter-up', depth: 0.7 },
+    { l: '1%', t: '44%', w: '45%', z: 2, pr: 16, rot: 1.0, enter: 'enter-left', depth: 0.9 },
+    { l: '40%', t: '38%', w: '24%', z: 5, pr: 12, rot: -0.9, enter: 'enter-spin', depth: 1.2 },
+    { l: '63%', t: '66%', w: '24%', z: 3, pr: 12, rot: 1.3, enter: 'enter-up', depth: 1.1 },
+    { l: '3%', t: '70%', w: '25%', z: 2, pr: 14, rot: -1.1, enter: 'enter-left', depth: 0.6 },
+    { l: '31%', t: '69%', w: '28%', z: 4, pr: 16, rot: 0.9, enter: 'enter-right', depth: 0.8 }
+  ];
+
+  const items = [];
+  aboutPhotos.forEach((ph, i) => {
+    const s = slots[i % slots.length];
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = `photo-item ph-${ph.layout || 'landscape'} ${s.enter}${ph.featured ? ' featured' : ''}`;
+    el.style.setProperty('--l', s.l);
+    el.style.setProperty('--t', s.t);
+    el.style.setProperty('--w', s.w);
+    el.style.setProperty('--z', s.z);
+    el.style.setProperty('--pr', s.pr + 'px');
+    el.style.setProperty('--prot', s.rot + 'deg');
+    el.style.animationDelay = ph.featured ? '0s' : (0.12 + i * 0.09) + 's';
+    el.dataset.index = i;
+    el.dataset.depth = s.depth;
+    el.setAttribute('aria-label', `View photo: ${ph.alt}`);
+    el.innerHTML = `
+      <img src="${ph.src}" alt="${ph.alt}" loading="lazy" />
+      ${ph.caption ? `<figcaption>${ph.caption}</figcaption>` : ''}`;
+    wrap.appendChild(el);
+    items.push(el);
+    el.addEventListener('click', () => openLightbox(i));
+  });
+
+  // entrance reveal
+  const io = new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { wrap.classList.add('in'); io.disconnect(); }
+  }, { threshold: 0.2 });
+  io.observe(wrap);
+
+  // desktop cursor parallax (4–10px) — skipped on touch / reduced motion
+  if (!coarsePointer.matches && !reducedMotion.matches) {
+    let raf = 0, tx = 0, ty = 0;
+    const about = document.getElementById('about');
+    about.addEventListener('pointermove', (e) => {
+      tx = (e.clientX / innerWidth - 0.5);
+      ty = (e.clientY / innerHeight - 0.5);
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
+    function apply() {
+      raf = 0;
+      for (const el of items) {
+        const d = parseFloat(el.dataset.depth);
+        el.style.setProperty('--px', (tx * d * -9).toFixed(1) + 'px');
+        el.style.setProperty('--py', (ty * d * -7).toFixed(1) + 'px');
+      }
+    }
+    // one restrained scroll-linked effect: the collage lags the page slightly
+    let scrollRaf = 0;
+    window.addEventListener('scroll', () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = 0;
+        const r = wrap.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > innerHeight + 100) return;
+        const centerDelta = (r.top + r.height / 2) - innerHeight / 2;
+        const off = Math.max(-22, Math.min(22, centerDelta * 0.045));
+        wrap.style.transform = `translateY(${off.toFixed(1)}px)`;
+      });
+    }, { passive: true });
+  }
+
+  /* ----- lightbox ----- */
+  let lbIndex = 0;
+  let lastFocused = null;
+
+  function renderLb() {
+    const ph = aboutPhotos[lbIndex];
+    lbImg.src = ph.src;
+    lbImg.alt = ph.alt;
+    lbCaption.textContent = ph.caption || '';
+    lbCaption.style.display = ph.caption ? '' : 'none';
+  }
+  function openLightbox(i) {
+    lbIndex = i;
+    lastFocused = document.activeElement;
+    renderLb();
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function closeLightbox() {
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+  function step(dir) {
+    lbIndex = (lbIndex + dir + aboutPhotos.length) % aboutPhotos.length;
+    renderLb();
+  }
+
+  lbPrev.addEventListener('click', () => step(-1));
+  lbNext.addEventListener('click', () => step(1));
+  lb.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeLightbox));
+  lb.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'Tab') {
+      const focusables = lb.querySelectorAll('button');
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  // touch swipe
+  let touchX = null;
+  lb.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 48) step(dx > 0 ? -1 : 1);
+    touchX = null;
+  }, { passive: true });
+})();
+
+/* ---------- 6. Flowering-vine Experience timeline ---------- */
+(function vineTimeline() {
+  const wrap = document.getElementById('vineWrap');
+  const svg = document.getElementById('vineSvg');
+  if (!wrap || !svg) return;
+
+  const flowers = [...wrap.querySelectorAll('.tl-flower')];
+  const FLOWER = `
+    <svg viewBox="-11 -11 22 22" xmlns="http://www.w3.org/2000/svg">
+      ${[0, 72, 144, 216, 288].map((a) =>
+        `<ellipse cx="0" cy="-5.6" rx="3.2" ry="5.1" fill="currentColor" transform="rotate(${a})"/>`).join('')}
+      <circle r="3" fill="#F7D9A8"/>
+    </svg>`;
+  flowers.forEach((f) => { f.innerHTML = FLOWER; });
+
+  const NS = 'http://www.w3.org/2000/svg';
+
+  function build() {
+    try {
+      const wr = wrap.getBoundingClientRect();
+      if (!wr.width || !wr.height) return;
+      svg.innerHTML = '';
+      svg.setAttribute('viewBox', `0 0 ${wr.width} ${wr.height}`);
+      svg.setAttribute('preserveAspectRatio', 'none');
+
+      // stem gradient: sage at the roots, dusty rose at the tip
+      const defs = document.createElementNS(NS, 'defs');
+      defs.innerHTML = `
+        <linearGradient id="vineGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9CAF97"/>
+          <stop offset="0.55" stop-color="#A9A292"/>
+          <stop offset="1" stop-color="#C98A93"/>
+        </linearGradient>`;
+      svg.appendChild(defs);
+
+      // wind the stem through every blossom
+      const pts = flowers.map((f) => {
+        const r = f.getBoundingClientRect();
+        return { x: r.left - wr.left + r.width / 2, y: r.top - wr.top + r.height / 2 };
+      });
+      const all = [{ x: pts[0].x - 26, y: 4 }, ...pts,
+        { x: pts[pts.length - 1].x + 22, y: wr.height - 8 }];
+      let d = `M ${all[0].x},${all[0].y}`;
+      for (let i = 1; i < all.length; i++) {
+        const p0 = all[i - 1], p1 = all[i];
+        const my = (p0.y + p1.y) / 2;
+        d += ` C ${p0.x},${my} ${p1.x},${my} ${p1.x},${p1.y}`;
+      }
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('class', 'vine-path');
+      path.setAttribute('d', d);
+      path.setAttribute('stroke', 'url(#vineGrad)');
+      svg.appendChild(path);
+
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = wrap.classList.contains('in') ? 0 : len;
+
+      // small leaves and buds along the stem
+      const leafAt = [0.06, 0.16, 0.27, 0.4, 0.52, 0.64, 0.77, 0.88];
+      leafAt.forEach((k, i) => {
+        const p = path.getPointAtLength(len * k);
+        const q = path.getPointAtLength(Math.min(len, len * k + 8));
+        const angle = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+        const side = i % 2 ? 55 : -55;
+        const leaf = document.createElementNS(NS, 'ellipse');
+        leaf.setAttribute('class', 'vine-leaf');
+        leaf.setAttribute('cx', p.x); leaf.setAttribute('cy', p.y);
+        leaf.setAttribute('rx', 7); leaf.setAttribute('ry', 3.2);
+        leaf.setAttribute('fill', i % 3 ? '#9CAF97' : '#B5C4A9');
+        leaf.setAttribute('transform', `rotate(${angle + side} ${p.x} ${p.y}) translate(0 ${i % 2 ? 6 : -6})`);
+        leaf.style.transitionDelay = (0.25 + k * 1.1) + 's';
+        svg.appendChild(leaf);
+      });
+      [0.22, 0.47, 0.71, 0.93].forEach((k) => {
+        const p = path.getPointAtLength(len * k);
+        const bud = document.createElementNS(NS, 'circle');
+        bud.setAttribute('class', 'vine-bud');
+        bud.setAttribute('cx', p.x); bud.setAttribute('cy', p.y);
+        bud.setAttribute('r', 3.4);
+        bud.setAttribute('fill', '#E8B4B8');
+        bud.style.transitionDelay = (0.35 + k * 1.1) + 's';
+        svg.appendChild(bud);
+      });
+    } catch (err) {
+      console.warn('Vine decoration unavailable:', err);
+      wrap.classList.add('in');
+    }
+  }
+
+  build();
+
+  const io = new IntersectionObserver(([en]) => {
+    if (!en.isIntersecting) return;
+    wrap.classList.add('in');
+    const p = svg.querySelector('.vine-path');
+    if (p) p.style.strokeDashoffset = 0;
+    io.disconnect();
+  }, { threshold: 0.2 });
+  io.observe(wrap);
+
+  let rt;
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(build, 180);
+  });
+})();
+
+/* ---------- 7. Lazy-load the castle scene ---------- */
+(function castleLoader() {
+  const frame = document.getElementById('sceneFrame');
+  const canvas = document.getElementById('castleCanvas');
+  const fallback = document.getElementById('sceneFallback');
+
+  function showFallback() {
+    canvas.style.display = 'none';
+    fallback.hidden = false;
+  }
+
+  function webglAvailable() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch { return false; }
+  }
+
+  const io = new IntersectionObserver(([en]) => {
+    if (!en.isIntersecting) return;
+    io.disconnect();
+    if (!webglAvailable()) { showFallback(); return; }
+    import('./js/castle.js')
+      .then((m) => {
+        m.initCastle(canvas, frame);
+        // safety net: if no frame has actually rendered shortly after
+        // init, fall back to the CSS illustration
+        setTimeout(() => { if (!canvas.dataset.rendered) showFallback(); }, 4000);
+      })
+      .catch((err) => { console.warn('Castle scene unavailable:', err); showFallback(); });
+  }, { rootMargin: '200px' });
+  io.observe(frame);
+})();
