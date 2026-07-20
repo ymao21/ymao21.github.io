@@ -1,0 +1,101 @@
+/* ==========================================================
+   Scroll-bloom botanical flowers flanking the bookshelf.
+   Decorative only: pointer-events:none, aria-hidden, layered
+   behind the books. All bloom timing is driven by a single
+   inherited custom property, --flower-progress (0 → 1), set by
+   js/flowers.js from the Projects section's scroll progress.
+   ========================================================== */
+
+.shelf-flowers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--sf-base, 420px);   /* JS sets this to the shelf-board line */
+  pointer-events: none;
+  z-index: 0;                       /* behind the books (.book is z-index:1+) */
+  --flower-progress: 0;
+}
+
+.sf {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.sf-left  { left: -6px;  width: min(24vw, 250px); }
+.sf-right { right: -6px; width: min(21vw, 220px); }
+.sf svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* --- generic bloom timing: each element carries --s / --e in [0,1] --- */
+.sfx {
+  --t: clamp(0, calc((var(--flower-progress) - var(--s)) / (var(--e) - var(--s))), 1);
+}
+
+/* stems draw upward from the base */
+.sf-stem {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--t));
+}
+
+.sf-leaf, .sf-leaf-vein, .sf-petal, .sf-center, .sf-bud, .sf-dot {
+  transform-box: fill-box;
+}
+/* leaves: grow + settle-rotate from their attachment point */
+.sf-leaf, .sf-leaf-vein {
+  transform-origin: 50% 100%;
+  opacity: var(--t);
+  transform: rotate(calc((1 - var(--t)) * var(--settle, -8deg))) scale(calc(0.3 + 0.7 * var(--t)));
+}
+/* petals: bloom open from the flower centre */
+.sf-petal {
+  transform-origin: 50% 100%;
+  opacity: clamp(0, calc(var(--t) * 2), 1);
+  transform: scale(calc(0.15 + 0.85 * var(--t)));
+}
+.sf-center {
+  transform-origin: 50% 50%;
+  opacity: var(--t);
+  transform: scale(calc(0.5 + 0.5 * var(--t)));
+}
+.sf-bud {
+  transform-origin: 50% 100%;
+  opacity: var(--t);
+  transform: scale(calc(0.2 + 0.8 * var(--t)));
+}
+.sf-dot {                 /* baby's-breath / tiny blossoms */
+  transform-origin: 50% 50%;
+  opacity: var(--t);
+  transform: scale(var(--t));
+}
+
+/* --- extremely subtle idle breeze, only once bloom is nearly complete --- */
+.sf-head { transform-box: fill-box; transform-origin: 50% 100%; }
+.shelf-flowers.bloomed .sf-head {
+  animation: sfBreeze var(--bd, 6.5s) ease-in-out infinite alternate;
+}
+@keyframes sfBreeze {
+  from { transform: translateY(0) rotate(-1.4deg); }
+  to   { transform: translateY(-2px) rotate(1.6deg); }
+}
+
+/* --- responsive: shrink and drop minor groups --- */
+@media (max-width: 1024px) {
+  .sf-left  { width: min(19vw, 172px); }
+  .sf-right { width: min(17vw, 150px); }
+  .sf-minor { display: none; }
+}
+@media (max-width: 720px) {
+  .sf-left  { width: 96px; }
+  .sf-right { width: 82px; }
+  .sf-minor, .sf-tertiary { display: none; }
+}
+
+/* --- reduced motion: fully bloomed, no breeze, no settle rotation --- */
+@media (prefers-reduced-motion: reduce) {
+  .shelf-flowers.bloomed .sf-head { animation: none; }
+  .sf-leaf, .sf-leaf-vein { transform: scale(1); }
+}
