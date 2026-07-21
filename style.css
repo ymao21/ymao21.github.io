@@ -902,7 +902,29 @@ h2 {
 .collage::after { bottom: -34px; left: 4%; color: rgba(169, 155, 198, 0.45); }
 
 /* ---------- Experience: flowering vine timeline ---------- */
-.experience { padding: 120px 0 90px; }
+.experience {
+  position: relative;
+  padding: 120px 0 90px;
+}
+.experience::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(190px, 26vw, 340px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(245, 229, 224, 0) 0%,
+    rgba(245, 229, 224, .28) 42%,
+    rgba(245, 229, 224, .68) 72%,
+    #F5E5E0 100%);
+}
+.experience > * {
+  position: relative;
+  z-index: 1;
+}
 .vine-wrap {
   position: relative;
   max-width: 900px;
@@ -1058,20 +1080,24 @@ h2 {
 
 /* ---------- Skills ---------- */
 .skills {
-  --contact-edge: #F8EEEA; /* exact first fallback stop used by .contact */
+  --experience-edge: #F5E5E0;
+  --contact-edge: #D9DCE4;
   position: relative;
   min-height: 100svh;
   overflow: hidden;
   padding: clamp(92px, 11vh, 126px) 0 0;
   background:
-    radial-gradient(ellipse at 20% 15%, rgba(255, 247, 251, .24), transparent 35%),
+    radial-gradient(ellipse at 31% 44%, rgba(65, 76, 99, .2), transparent 48%),
     linear-gradient(180deg,
-      #F6DCE8 0%,
-      #E8E6F2 17%,
-      #D9EAF5 36%,
-      #C6E5F5 58%,
-      #B7DDEF 78%,
-      #DCE7EE 90%,
+      var(--experience-edge) 0%,
+      #F0DDE2 10%,
+      #E5CFD8 22%,
+      #D4BEC9 34%,
+      #B9AABB 46%,
+      #9FA1B4 56%,
+      #8996A9 68%,
+      #A7B0BF 80%,
+      #C4CAD4 91%,
       var(--contact-edge) 100%);
 }
 .skills::after {

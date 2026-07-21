@@ -26,6 +26,19 @@ if (canvas && control && stage && semanticList) {
     pointerRadius: 92,
   };
 
+  const COMPANION_FLOWERS = [
+    { x: -.96, y: 1.46, radius: .26, bottom: -.105, rays: 72, stem: 3.1, sway: .7 },
+    { x: -.48, y: 1.78, radius: .19, bottom: -.045, rays: 56, stem: 2.7, sway: .9 },
+    { x: .5, y: 1.6, radius: .23, bottom: .02, rays: 64, stem: 2.9, sway: 1.05 },
+    { x: .94, y: 1.92, radius: .16, bottom: .085, rays: 48, stem: 2.5, sway: 1.2 },
+  ];
+
+  const YELLOW_DANDELIONS = [
+    { x: -1.28, y: 1.78, radius: .105, bottom: -.14, petals: 25, sway: .85 },
+    { x: .05, y: 2.04, radius: .085, bottom: -.005, petals: 21, sway: 1.1 },
+    { x: 1.22, y: 1.55, radius: .11, bottom: .13, petals: 27, sway: 1.25 },
+  ];
+
   let width = 1;
   let height = 1;
   let pixelRatio = 1;
@@ -227,7 +240,7 @@ if (canvas && control && stage && semanticList) {
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
     centerX = width * (width < 620 ? .5 : .51);
-    centerY = height * (width < 620 ? .33 : .35);
+    centerY = height * (width < 620 ? .3 : .31);
     radius = Math.min(
       width * (width < 620 ? .33 : .28),
       height * (width < 620 ? .19 : .245),
@@ -347,8 +360,8 @@ if (canvas && control && stage && semanticList) {
     const bottomY = height + 8;
     context.save();
     context.lineCap = 'round';
-    context.strokeStyle = 'rgba(91, 130, 121, .48)';
-    context.lineWidth = 1.45;
+    context.strokeStyle = 'rgba(75, 119, 90, .56)';
+    context.lineWidth = 3.2;
     context.beginPath();
     context.moveTo(bottomX, bottomY);
     context.bezierCurveTo(
@@ -361,12 +374,122 @@ if (canvas && control && stage && semanticList) {
     );
     context.stroke();
     context.strokeStyle = 'rgba(239, 248, 246, .2)';
-    context.lineWidth = .65;
+    context.lineWidth = 1.1;
     context.beginPath();
     context.moveTo(bottomX + 1.5, bottomY);
     context.bezierCurveTo(bottomX - 5, height * .71, headX - 4, headY + radius * .62, headX + windLean + 1, headY + 5);
     context.stroke();
     context.restore();
+  }
+
+  function drawYellowDandelions(now, windLean = 0) {
+    const sway = reducedMotion ? 0 : Math.sin(now / 1650 + .8) * 1.8;
+
+    for (let flowerIndex = 0; flowerIndex < YELLOW_DANDELIONS.length; flowerIndex += 1) {
+      const flower = YELLOW_DANDELIONS[flowerIndex];
+      const flowerRadius = radius * flower.radius;
+      const headX = centerX + radius * flower.x + sway * flower.sway + windLean * .15;
+      const headY = centerY + radius * flower.y;
+      const bottomX = centerX + width * flower.bottom;
+
+      context.save();
+      context.lineCap = 'round';
+      context.strokeStyle = 'rgba(72, 116, 86, .54)';
+      context.lineWidth = 2.45;
+      context.beginPath();
+      context.moveTo(bottomX, height + 8);
+      context.bezierCurveTo(bottomX, height * .84, headX - flower.x * 3, headY + flowerRadius * 2.6, headX, headY + 1);
+      context.stroke();
+
+      for (let petalIndex = 0; petalIndex < flower.petals; petalIndex += 1) {
+        const angle = petalIndex / flower.petals * Math.PI * 2
+          + deterministic(petalIndex + flowerIndex * 29, 51) * .16;
+        const petalLength = flowerRadius * (.62 + deterministic(petalIndex + flowerIndex * 31, 52) * .36);
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        context.strokeStyle = `rgba(247, 194, 54, ${.72 + deterministic(petalIndex, 53) * .22})`;
+        context.lineWidth = 1.35 + flower.radius * 5;
+        context.beginPath();
+        context.moveTo(headX + cos * flowerRadius * .18, headY + sin * flowerRadius * .18);
+        context.lineTo(headX + cos * petalLength, headY + sin * petalLength);
+        context.stroke();
+      }
+
+      context.fillStyle = 'rgba(225, 151, 32, .92)';
+      context.beginPath();
+      context.arc(headX, headY, flowerRadius * .31, 0, Math.PI * 2);
+      context.fill();
+      context.fillStyle = 'rgba(255, 216, 76, .94)';
+      context.beginPath();
+      context.arc(headX, headY, flowerRadius * .17, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
+    }
+  }
+
+  function drawCompanionDandelions(now, windLean = 0) {
+    const sway = reducedMotion ? 0 : Math.sin(now / 1800) * 2;
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+    drawYellowDandelions(now, windLean);
+
+    for (let flowerIndex = 0; flowerIndex < COMPANION_FLOWERS.length; flowerIndex += 1) {
+      const flower = COMPANION_FLOWERS[flowerIndex];
+      const headRadius = radius * flower.radius;
+      const headX = centerX + radius * flower.x + sway * flower.sway + windLean * .18;
+      const headY = centerY + radius * flower.y;
+      const bottomX = centerX + width * flower.bottom;
+      context.save();
+      context.lineCap = 'round';
+      context.strokeStyle = 'rgba(79, 123, 94, .5)';
+      context.lineWidth = flower.stem;
+      context.beginPath();
+      context.moveTo(bottomX, height + 8);
+      context.bezierCurveTo(
+        bottomX + width * (flower.x < 0 ? -.012 : .01),
+        height * .76,
+        headX - flower.x * 5,
+        headY + headRadius * 2.8,
+        headX,
+        headY + 2,
+      );
+      context.stroke();
+
+      context.strokeStyle = 'rgba(232, 246, 237, .18)';
+      context.lineWidth = Math.max(.55, flower.stem * .38);
+      context.beginPath();
+      context.moveTo(bottomX + 1, height + 8);
+      context.bezierCurveTo(bottomX, height * .76, headX - flower.x * 3, headY + headRadius * 2.5, headX + .5, headY + 2);
+      context.stroke();
+
+      for (let rayIndex = 0; rayIndex < flower.rays; rayIndex += 1) {
+        const angle = rayIndex * goldenAngle + flowerIndex * .7;
+        const rayLength = headRadius * (.72 + deterministic(rayIndex + flowerIndex * 37, 41) * .3);
+        const innerRadius = headRadius * .12;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        const tipX = headX + cos * rayLength;
+        const tipY = headY + sin * rayLength;
+
+        context.strokeStyle = `rgba(252, 253, 255, ${.42 + flower.radius * .55})`;
+        context.lineWidth = .58;
+        context.beginPath();
+        context.moveTo(headX + cos * innerRadius, headY + sin * innerRadius);
+        context.lineTo(tipX, tipY);
+        context.stroke();
+
+        context.fillStyle = `rgba(255, 255, 255, ${.64 + flower.radius * .55})`;
+        context.beginPath();
+        context.arc(tipX, tipY, .72 + flower.radius, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      context.fillStyle = 'rgba(255, 253, 242, .66)';
+      context.beginPath();
+      context.arc(headX, headY, 1.6 + flower.radius * 3, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
+    }
   }
 
   function drawCenter(headX, headY, fullness, now) {
@@ -449,9 +572,9 @@ if (canvas && control && stage && semanticList) {
       const distance = Math.hypot(seed.homeX - clickX, seed.homeY - clickY);
       const normalizedDistance = Math.min(1, distance / (radius * 2.15));
       seed.releaseDelay = normalizedDistance * CONFIG.releaseWaveDuration + deterministic(index, 11) * 190;
-      seed.velocityX = 92 + deterministic(index, 12) * 128 + normalizedDistance * 35;
+      seed.velocityX = 150 + deterministic(index, 12) * 150 + normalizedDistance * 45;
       seed.velocityY = -62 - deterministic(index, 13) * 92 - normalizedDistance * 18;
-      seed.flightDuration = 2450 + deterministic(index, 14) * 1350;
+      seed.flightDuration = 3200 + deterministic(index, 14) * 1300;
       seed.flightRotation = (deterministic(index, 15) - .5) * .42;
       seed.animationState = 'waiting';
       longestRelease = Math.max(longestRelease, seed.releaseDelay + seed.flightDuration);
@@ -472,14 +595,20 @@ if (canvas && control && stage && semanticList) {
 
   function drawDetachedSeed(seed, age, opacity) {
     const seconds = age / 1000;
+    const launchDuration = .58;
+    const travelSeconds = seconds < launchDuration
+      ? seconds * seconds / (launchDuration * 2)
+      : seconds - launchDuration * .5;
+    const turbulenceProgress = Math.min(1, seconds / .72);
+    const turbulenceEnvelope = turbulenceProgress * turbulenceProgress * (3 - 2 * turbulenceProgress);
     const turbulence = Math.sin(seconds * seed.turbulenceFrequency * Math.PI * 2 + seed.turbulencePhase)
-      * seed.turbulenceAmount;
-    const x = seed.homeX + seed.velocityX * seconds + 9 * seconds * seconds + turbulence;
-    const y = seed.homeY + seed.velocityY * seconds - 8 * seconds * seconds
-      + Math.cos(seconds * 1.35 + seed.turbulencePhase) * seed.turbulenceAmount * .45;
+      * seed.turbulenceAmount * turbulenceEnvelope;
+    const x = seed.homeX + seed.velocityX * travelSeconds + 16 * travelSeconds * travelSeconds + turbulence;
+    const y = seed.homeY + seed.velocityY * travelSeconds - 8 * travelSeconds * travelSeconds
+      + Math.cos(seconds * 1.35 + seed.turbulencePhase) * seed.turbulenceAmount * .45 * turbulenceEnvelope;
     const progress = Math.min(1, age / seed.flightDuration);
     const scale = seed.homeScale * (1 - progress * .48);
-    const rotation = seed.homeAngle + seed.flightRotation * seconds;
+    const rotation = seed.homeAngle + seed.flightRotation * travelSeconds;
     const speed = Math.max(1, Math.hypot(seed.velocityX, seed.velocityY));
     const trailX = x - seed.velocityX / speed * (11 + 9 * (1 - progress));
     const trailY = y - seed.velocityY / speed * (11 + 9 * (1 - progress));
@@ -500,6 +629,7 @@ if (canvas && control && stage && semanticList) {
     const headY = centerY - windLean * .18;
     let attached = 0;
 
+    drawCompanionDandelions(now, windLean);
     drawStem(headX, headY, windLean);
     for (const seed of seeds) {
       const age = elapsed - seed.releaseDelay;
@@ -514,7 +644,9 @@ if (canvas && control && stage && semanticList) {
       } else if (age < seed.flightDuration) {
         seed.animationState = 'released';
         const progress = age / seed.flightDuration;
-        const opacity = seed.homeOpacity * Math.max(0, 1 - progress * progress);
+        const fadeProgress = Math.max(0, (progress - .48) / .52);
+        const smoothFade = fadeProgress * fadeProgress * (3 - 2 * fadeProgress);
+        const opacity = seed.homeOpacity * (1 - smoothFade);
         drawDetachedSeed(seed, age, opacity);
       } else {
         seed.animationState = 'gone';
@@ -565,6 +697,7 @@ if (canvas && control && stage && semanticList) {
   function drawReconstructing(now) {
     const elapsed = now - stateStartedAt;
     let fullness = 0;
+    drawCompanionDandelions(now);
     drawStem(centerX, centerY);
     for (const seed of seeds) {
       const localTime = elapsed - seed.returnDelay;
@@ -602,6 +735,7 @@ if (canvas && control && stage && semanticList) {
 
   function drawIdle(now) {
     const projected = projectIdleSeeds(now);
+    drawCompanionDandelions(now);
     drawStem(projected.headX, projected.headY);
     depthOrder.sort((a, b) => a.zDepth - b.zDepth);
     for (const seed of depthOrder) drawAttachedSeed(seed, projected.headX, projected.headY);
@@ -618,6 +752,7 @@ if (canvas && control && stage && semanticList) {
     } else if (animationState === 'dispersing') {
       drawDispersing(now);
     } else if (animationState === 'empty') {
+      drawCompanionDandelions(now);
       drawStem(centerX, centerY);
       drawCenter(centerX, centerY, .05, now);
       if (now - stateStartedAt >= CONFIG.emptyDuration) beginReconstruction(now);
