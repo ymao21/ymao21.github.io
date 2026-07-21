@@ -197,32 +197,21 @@
 
     <!-- ───────── Skills ───────── -->
     <section id="skills" class="skills" aria-labelledby="skillsTitle">
-      <header class="section-head">
-        <p class="kicker">04 — SKILLS</p>
-        <h2 id="skillsTitle" class="reveal">What I work with</h2>
-      </header>
+      <div class="skills-inner">
+        <div class="dandelion-visualization">
+          <button id="dandelionControl" class="dandelion-control" type="button"
+                  aria-label="Interactive visualization of Yining’s technical skills"
+                  aria-describedby="dandelionInstructions">
+            <canvas id="skillsDandelion" aria-hidden="true"></canvas>
+            <span id="dandelionInstructions" class="skills-sr-only">Press Enter or Space to send the skill seeds into the wind. The dandelion will rebuild automatically.</span>
+          </button>
+          <ul id="dandelionSkillList" class="skills-sr-only" aria-label="Technical skills"></ul>
+        </div>
 
-      <div class="skill-shelves">
-        <div class="skill-group reveal">
-          <span class="skill-label">PROGRAMMING</span>
-          <p><strong>Python</strong> · SQL · R · JavaScript</p>
-        </div>
-        <div class="skill-group reveal d1">
-          <span class="skill-label">DATA / ML</span>
-          <p><strong>Machine learning</strong> · NLP · Statistical modeling · Dashboards · Analytics</p>
-        </div>
-        <div class="skill-group reveal d2">
-          <span class="skill-label">AI</span>
-          <p><strong>LLMs</strong> · Prompt engineering · <strong>RAG</strong> · Agentic workflows · Knowledge graphs</p>
-        </div>
-        <div class="skill-group reveal d3">
-          <span class="skill-label">TOOLS</span>
-          <p>Tableau · Power BI · Excel · Jira · GitHub · <strong>GCP</strong> · PySpark</p>
-        </div>
-        <div class="skill-group reveal d4">
-          <span class="skill-label">BUSINESS</span>
-          <p>Strategy · Risk analytics · Stakeholder communication · Process improvement</p>
-        </div>
+        <header class="skills-copy">
+          <p class="kicker">04 - SKILLS</p>
+          <h2 id="skillsTitle" class="reveal">what I work with</h2>
+        </header>
       </div>
     </section>
 
@@ -277,6 +266,7 @@
   </div>
 
   <script type="module" src="script.js"></script>
+  <script type="module" src="js/dandelion.js"></script>
   <script src="js/cursor.js" defer></script>
   <script src="js/flowers.js" defer></script>
   <script type="module" src="js/gallery.js"></script>
