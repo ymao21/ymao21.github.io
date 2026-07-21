@@ -239,7 +239,7 @@ if (canvas && control && stage && semanticList) {
     pixelRatio = nextRatio;
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
-    centerX = width * (width < 620 ? .5 : .51);
+    centerX = width * (width < 620 ? .5 : .28);
     centerY = height * (width < 620 ? .3 : .31);
     radius = Math.min(
       width * (width < 620 ? .33 : .28),
@@ -572,9 +572,9 @@ if (canvas && control && stage && semanticList) {
       const distance = Math.hypot(seed.homeX - clickX, seed.homeY - clickY);
       const normalizedDistance = Math.min(1, distance / (radius * 2.15));
       seed.releaseDelay = normalizedDistance * CONFIG.releaseWaveDuration + deterministic(index, 11) * 190;
-      seed.velocityX = 150 + deterministic(index, 12) * 150 + normalizedDistance * 45;
-      seed.velocityY = -62 - deterministic(index, 13) * 92 - normalizedDistance * 18;
-      seed.flightDuration = 3200 + deterministic(index, 14) * 1300;
+      seed.velocityX = 175 + deterministic(index, 12) * 155 + normalizedDistance * 50;
+      seed.velocityY = -36 - deterministic(index, 13) * 66 - normalizedDistance * 12;
+      seed.flightDuration = 4000 + deterministic(index, 14) * 1400;
       seed.flightRotation = (deterministic(index, 15) - .5) * .42;
       seed.animationState = 'waiting';
       longestRelease = Math.max(longestRelease, seed.releaseDelay + seed.flightDuration);
@@ -609,16 +609,23 @@ if (canvas && control && stage && semanticList) {
     const progress = Math.min(1, age / seed.flightDuration);
     const scale = seed.homeScale * (1 - progress * .48);
     const rotation = seed.homeAngle + seed.flightRotation * travelSeconds;
+    const rightFadeDistance = Math.min(180, width * .14);
+    const rightSpace = Math.max(0, Math.min(1, (width - x) / rightFadeDistance));
+    const rightEdgeFade = rightSpace * rightSpace * (3 - 2 * rightSpace);
+    const topFadeDistance = Math.min(110, height * .16);
+    const topSpace = Math.max(0, Math.min(1, y / topFadeDistance));
+    const topEdgeFade = topSpace * topSpace * (3 - 2 * topSpace);
+    const visibleOpacity = opacity * Math.min(rightEdgeFade, topEdgeFade);
     const speed = Math.max(1, Math.hypot(seed.velocityX, seed.velocityY));
     const trailX = x - seed.velocityX / speed * (11 + 9 * (1 - progress));
     const trailY = y - seed.velocityY / speed * (11 + 9 * (1 - progress));
-    context.strokeStyle = `rgba(245, 250, 255, ${opacity * .28})`;
+    context.strokeStyle = `rgba(245, 250, 255, ${visibleOpacity * .28})`;
     context.lineWidth = .55;
     context.beginPath();
     context.moveTo(trailX, trailY);
     context.lineTo(x, y);
     context.stroke();
-    drawSeedWord(seed, x, y, scale, opacity, rotation);
+    drawSeedWord(seed, x, y, scale, visibleOpacity, rotation);
   }
 
   function drawDispersing(now) {
@@ -644,7 +651,7 @@ if (canvas && control && stage && semanticList) {
       } else if (age < seed.flightDuration) {
         seed.animationState = 'released';
         const progress = age / seed.flightDuration;
-        const fadeProgress = Math.max(0, (progress - .48) / .52);
+        const fadeProgress = Math.max(0, (progress - .64) / .36);
         const smoothFade = fadeProgress * fadeProgress * (3 - 2 * fadeProgress);
         const opacity = seed.homeOpacity * (1 - smoothFade);
         drawDetachedSeed(seed, age, opacity);

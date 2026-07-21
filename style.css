@@ -1086,19 +1086,18 @@ h2 {
   min-height: 100svh;
   overflow: hidden;
   padding: clamp(92px, 11vh, 126px) 0 0;
-  background:
-    radial-gradient(ellipse at 31% 44%, rgba(65, 76, 99, .2), transparent 48%),
-    linear-gradient(180deg,
-      var(--experience-edge) 0%,
-      #F0DDE2 10%,
-      #E5CFD8 22%,
-      #D4BEC9 34%,
-      #B9AABB 46%,
-      #9FA1B4 56%,
-      #8996A9 68%,
-      #A7B0BF 80%,
-      #C4CAD4 91%,
-      var(--contact-edge) 100%);
+  background: linear-gradient(180deg,
+    var(--experience-edge) 0%,
+    #EAD6DD 12%,
+    #D9C4CE 24%,
+    #C2B0BF 36%,
+    #A59FAF 48%,
+    #8992A5 59%,
+    #7D8DA3 69%,
+    #96A3B4 79%,
+    #B2BAC8 89%,
+    #C9CFD8 96%,
+    var(--contact-edge) 100%);
 }
 .skills::after {
   content: '';
@@ -1141,12 +1140,15 @@ h2 {
   letter-spacing: -.01em;
 }
 .dandelion-visualization {
-  grid-area: visual;
+  grid-column: 1 / -1;
+  grid-row: 1;
   position: relative;
   align-self: end;
   min-width: 0;
-  width: 100%;
-  max-width: 720px;
+  left: 50%;
+  width: 100vw;
+  max-width: none;
+  transform: translateX(-50%);
   height: min(740px, calc(100svh - 96px));
   min-height: 620px;
 }
@@ -1158,7 +1160,7 @@ h2 {
   overflow: hidden;
   padding: 0;
   border: 0;
-  border-radius: 50% 50% 8px 8px;
+  border-radius: 0;
   color: inherit;
   background: transparent;
   cursor: pointer;
@@ -1706,10 +1708,14 @@ h2 {
     font-size: clamp(30px, 4.4vw, 42px);
   }
   .dandelion-visualization {
+    grid-column: 1;
+    grid-row: 2;
+    left: auto;
     width: calc(100% + 20px);
     height: 650px;
     min-height: 650px;
     margin: 4px -10px 0;
+    transform: none;
   }
 }
 
