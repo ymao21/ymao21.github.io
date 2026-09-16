@@ -130,6 +130,25 @@
         </li>
 
         <li class="feat reveal">
+          <p class="feat-meta">Agentic AI · Clinical NLP · Apr 2026 · Hackathon team</p>
+          <h3 class="feat-title">
+            <a href="projects.html#clinical-kg-multi-agent">Clinical Knowledge Graph Agents</a>
+          </h3>
+          <p class="feat-line">
+            A 15-minute clinical visit leaves a transcript with symptoms, history and
+            treatments scattered through the conversation. The team built an
+            ontology-driven multi-agent system that turns those transcripts into a
+            validated, queryable knowledge graph. I contributed to prompt engineering,
+            ontology design, evaluation, and workflow development.
+          </p>
+          <p class="feat-result">
+            The composite score against the human-curated reference graph rose from
+            0.562 with the naive single-pass baseline to 0.933 with the multi-agent
+            system. It won the 2026 Schmidt AI in Science Hackathon.
+          </p>
+        </li>
+
+        <li class="feat reveal">
           <p class="feat-meta">Risk Modeling · Business Decisioning · Sep–Dec 2025</p>
           <h3 class="feat-title">
             <a href="projects.html#verizon-default-risk">Device Financing Credit Risk</a>
@@ -163,10 +182,29 @@
             retrieval rather than generation was capping the system.
           </p>
         </li>
+
+        <li class="feat reveal">
+          <p class="feat-meta">NLP · Transformers at Scale · Jan–Apr 2026</p>
+          <h3 class="feat-title">
+            <a href="projects.html#ai-industry-analysis">AI Industry Analysis</a>
+          </h3>
+          <p class="feat-line">
+            Roughly 200,000 AI news articles is too much to read and too noisy to
+            summarize by hand. I built a three-stage pipeline over ~196K cleaned
+            documents: BERTopic for semantic topic discovery benchmarked against an
+            LDA baseline, spaCy NER for organizations and technologies, and a
+            fine-tuned DistilBERT sentiment classifier.
+          </p>
+          <p class="feat-result">
+            96% accuracy and 0.95 macro F1 on the Financial PhraseBank held-out set,
+            then applied out of domain across the full news corpus, so those figures
+            describe the benchmark rather than the articles themselves.
+          </p>
+        </li>
       </ol>
 
       <p class="feat-all reveal">
-        <a class="link-wipe" href="projects.html">See all fifteen projects</a>
+        <a class="link-wipe" href="projects.html">See all projects</a>
       </p>
     </section>
   </main>
