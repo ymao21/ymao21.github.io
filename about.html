@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Yining Mao</title>
+  <meta name="description" content="Yining Mao&#39;s background: Chengdu to Boston College to State Street to the University of Chicago, plus experience, technical expertise, education, and what I do outside of work." />
+  <meta name="author" content="Yining Mao" />
+  <meta name="theme-color" content="#22262F" />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="About — Yining Mao" />
+  <meta property="og:description" content="My path, my experience, what I work with, and what I get up to outside of work." />
+  <meta property="og:url" content="https://ymao21.github.io/about.html" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="canonical" href="https://ymao21.github.io/about.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='Inter,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23A6B1E1' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <a class="logo" href="index.html">Yining Mao</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navLinks" class="nav-links" aria-label="Main">
+      <a class="link-wipe" href="index.html">Home</a>
+      <a class="link-wipe is-current" href="about.html" aria-current="page">About</a>
+      <a class="link-wipe" href="projects.html">Projects</a>
+      <a class="link-wipe" href="#contact">Contact</a>
+      <a class="nav-cta" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <main id="main" class="about-page">
+
+    <header class="about-head">
+      <h1 class="reveal">Yining Mao</h1>
+    </header>
+
+    <div class="about-body">
+
+      <!-- 1. Personal story -->
+      <section class="about-section about-intro" aria-label="Background">
+        <img class="portrait reveal"
+             src="img/yining-mao.jpg"
+             srcset="img/yining-mao.jpg 640w, img/yining-mao@2x.jpg 1280w"
+             sizes="150px"
+             width="150" height="150"
+             alt="Portrait of Yining Mao" />
+        <div class="about-intro-copy">
+          <p class="reveal">
+            I grew up in Chengdu, China, and moved to the U.S. for high school in the
+            Greater Boston area. I studied Economics and Math at Boston College and
+            started my career in finance at State Street, working across risk,
+            analytics, algorithmic trading, and automation. The part I liked most was
+            building things, which pulled me toward software engineering, then data
+            science, and eventually a master's in Applied Data Science at the
+            University of Chicago.
+          </p>
+          <p class="reveal">
+            Most of what I know I learned by building something badly first. I picked
+            up a Rubik's Cube to see if I could solve it, and then spent weeks shaving
+            seconds off the time. My projects tend to go the same way: the first version
+            works, and then I want to know exactly where it breaks.
+          </p>
+          <p class="reveal">
+            When I'm not working, I'm usually outside. I've climbed in Yangshuo, Rumney, and
+            Yosemite, mostly bouldering and top roping, though I still haven't worked up
+            the courage to lead. I play tennis with friends and spend winters skiing or
+            snowboarding wherever I can, from New England and the Rockies to Les Trois
+            Vallées. I travel as much as I can manage, mostly around Europe and Asia,
+            and I'm enough of a foodie that I usually plan a trip around what I want to
+            eat before I work out what I want to see.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. Technical expertise -->
+      <section class="about-section" aria-labelledby="skillsTitle">
+        <h2 id="skillsTitle" class="mini-label reveal">Technical expertise</h2>
+
+        <div class="skill-grid">
+          <section class="skill-card reveal" aria-labelledby="skAi">
+            <h3 id="skAi">AI / ML</h3>
+            <ul>
+              <li>Evaluation: RAGAS, Hit@k, LLM-as-judge</li>
+              <li>LangGraph, MCP</li>
+              <li>RAG, GraphRAG, ChromaDB</li>
+              <li>PyTorch, Hugging Face</li>
+              <li>Transformers, BERTopic, spaCy</li>
+              <li>Whisper, SpeechT5</li>
+              <li>YOLO, SAM2, Stable Diffusion</li>
+            </ul>
+          </section>
+
+          <section class="skill-card reveal d1" aria-labelledby="skData">
+            <h3 id="skData">Data</h3>
+            <ul>
+              <li>Python, SQL, R</li>
+              <li>pandas, NumPy, scikit-learn</li>
+              <li>PySpark, Spark MLlib</li>
+              <li>Statistical modeling, SARIMA</li>
+              <li>Data pipelines, Parquet</li>
+              <li>Baseline comparison, error analysis</li>
+              <li>Clustering, RFM, XGBoost</li>
+            </ul>
+          </section>
+
+          <section class="skill-card reveal d2" aria-labelledby="skEng">
+            <h3 id="skEng">Engineering</h3>
+            <ul>
+              <li>FastAPI, Flask, Gradio</li>
+              <li>REST APIs, integrations</li>
+              <li>React, Redux, JavaScript</li>
+              <li>Node.js, Express, PostgreSQL</li>
+              <li>Google Cloud, Dataproc, GCS</li>
+              <li>AWS S3</li>
+              <li>Git</li>
+            </ul>
+          </section>
+
+          <section class="skill-card reveal d3" aria-labelledby="skBiz">
+            <h3 id="skBiz">Analytics / Business</h3>
+            <ul>
+              <li>Risk and credit analytics</li>
+              <li>Experimentation, threshold tuning</li>
+              <li>Tableau, Power BI</li>
+              <li>Data visualization, dashboards</li>
+              <li>Business analysis</li>
+              <li>ERM frameworks, OneTrust</li>
+              <li>Stakeholder communication</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <!-- 3. Education -->
+      <section class="about-section" aria-labelledby="eduTitle">
+        <h2 id="eduTitle" class="mini-label reveal">Education</h2>
+
+        <div class="edu-list reveal">
+          <article class="edu">
+            <div class="edu-head">
+              <h3>University of Chicago</h3>
+              <p class="edu-meta">Expected Dec 2026</p>
+            </div>
+            <p class="edu-degree">M.S. in Applied Data Science, GPA 4.0 / 4.0</p>
+          </article>
+
+          <article class="edu">
+            <div class="edu-head">
+              <h3>Boston College</h3>
+              <p class="edu-meta">May 2021</p>
+            </div>
+            <p class="edu-degree">B.A. in Economics, minor in Mathematics</p>
+          </article>
+        </div>
+
+        <!-- 4. Resume -->
+        <p class="about-resume reveal">
+          <a class="link-wipe" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">View full resume</a>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <section id="contact" class="contact" aria-labelledby="contactTitle">
+    <div class="contact-inner">
+      <h2 id="contactTitle" class="reveal">Let's connect.</h2>
+      <p class="contact-note reveal d1">
+        I'm graduating in December 2026 and looking for full-time opportunities
+        across data science, AI engineering, and data/AI consulting.
+      </p>
+      <p class="contact-email reveal d1">
+        <a class="link-wipe" href="mailto:ynmao@uchicago.edu">ynmao@uchicago.edu</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Yining Mao · Chicago, IL</p>
+    <p class="footer-links">
+      <a class="link-wipe" href="about.html">About</a>
+      <a class="link-wipe" href="projects.html">Projects</a>
+      <a class="link-wipe" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="link-wipe" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

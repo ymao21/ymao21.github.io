@@ -3,273 +3,189 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yining Mao — Data, AI & Curiosity</title>
-  <meta name="description" content="Portfolio of Yining Mao — applied data science, AI, and the things I'm building, learning, and exploring." />
+  <title>Yining Mao — Data, AI &amp; Applied Machine Learning</title>
+  <meta name="description" content="Yining Mao — Boston College graduate, master's student in Applied Data Science at the University of Chicago, Enterprise Risk Management Intern at ISACA, and former State Street associate working across analytics, risk, algorithmic trading, and automation." />
+  <meta name="author" content="Yining Mao" />
+  <meta name="theme-color" content="#22262F" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Yining Mao — Data, AI &amp; Applied Machine Learning" />
+  <meta property="og:description" content="Industry experience at the intersection of data and business, with project work across LLM agents, RAG, multimodal models, and full-stack applications." />
+  <meta property="og:url" content="https://ymao21.github.io/" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="canonical" href="https://ymao21.github.io/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='Inter,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23A6B1E1' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="cursor.css" />
-  <link rel="stylesheet" href="flowers.css" />
-  <link rel="stylesheet" href="gallery.css" />
-  <link rel="stylesheet" href="about.css" />
 </head>
 <body>
 
-  <!-- Global flower layer: fills the whole document, never blocks clicks -->
-  <div id="flowerLayer" aria-hidden="true"></div>
+  <a class="skip-link" href="#home">Skip to content</a>
 
-  <!-- ───────── Header ───────── -->
   <header class="nav" id="nav">
-    <a class="logo" href="#hero">ymao<span class="logo-dot">.</span></a>
+    <a class="logo" href="index.html">Yining Mao</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-      <span></span><span></span>
+      <span></span><span></span><span></span>
     </button>
     <nav id="navLinks" class="nav-links" aria-label="Main">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <a class="link-wipe is-current" href="index.html" aria-current="page">Home</a>
+      <a class="link-wipe" href="about.html">About</a>
+      <a class="link-wipe" href="projects.html">Projects</a>
+      <a class="link-wipe" href="#contact">Contact</a>
+      <a class="nav-cta" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
     </nav>
   </header>
 
-  <main>
-
-    <!-- ───────── Hero ───────── -->
-    <section id="hero" class="hero" aria-label="Introduction">
-      <!-- Cinematic looping video background — double-buffered crossfade (decorative) -->
-      <div class="hero-media" id="heroMedia" aria-hidden="true">
-        <video class="hero-video" muted autoplay playsinline preload="auto" disablepictureinpicture tabindex="-1">
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4" />
-        </video>
-        <video class="hero-video" muted playsinline preload="auto" disablepictureinpicture tabindex="-1">
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4" />
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-glow"></div>
-      </div>
-      <canvas id="constellation" class="constellation" aria-hidden="true"></canvas>
-
+  <main id="home">
+    <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow reveal">WELCOME TO MY PORTFOLIO</p>
-          <h1 class="reveal d1">Hi, I’m <span class="grad-name">Yining</span>.</h1>
-          <p class="hero-desc reveal d2">
-            This is a small home for the things I’m building, learning, and
-            exploring with data, AI, and curiosity. Here, you’ll find my
-            projects, experiences, and the ideas I’m exploring along the way.
+          <h1 id="heroTitle">Yining Mao</h1>
+          <p class="hero-role">Applied AI, Data &amp; Machine Learning</p>
+
+          <p class="hero-sub">
+            I build applied AI and data systems: agent pipelines, retrieval,
+            multimodal models, and the analysis that turns a model into a decision
+            someone can act on.
           </p>
-          <div class="hero-actions reveal d3">
-            <a class="btn btn-primary" href="#projects">View My Work</a>
-            <a class="btn btn-ghost" href="#about">About Me</a>
+          <p class="hero-sub">
+            Four years at State Street across risk, analytics, algorithmic trading,
+            and automation, now finishing an M.S. in Applied Data Science at the
+            University of Chicago.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="projects.html">View Projects</a>
+            <a class="btn btn-outline" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
           </div>
-          <div class="hero-social reveal d4">
-            <a href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <span class="dot-sep" aria-hidden="true">·</span>
-            <a href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <span class="dot-sep" aria-hidden="true">·</span>
-            <a href="mailto:ymao@uchicago.edu">Email</a>
-          </div>
-        </div>
-      </div>
 
-      <p class="flower-hint" aria-hidden="true">🌷 Click anywhere to plant a flower</p>
-      <div class="hero-fade" aria-hidden="true"></div>
+          <ul class="hero-social">
+            <li><a class="link-wipe" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a class="link-wipe" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <aside class="hero-facts" aria-label="At a glance">
+          <dl>
+            <div>
+              <dt>Recognition</dt>
+              <dd>
+                Winner, 2026 Schmidt AI in Science Hackathon. Co-author,
+                <a class="link-wipe" href="https://arxiv.org/abs/2608.22583" target="_blank" rel="noopener noreferrer">Clinical Graph-JEPA</a>
+                (arXiv, 2026).
+              </dd>
+            </div>
+            <div>
+              <dt>Writing</dt>
+              <dd>
+                UChicago Data Science Institute, 2026:
+                <a class="link-wipe" href="https://datascience.uchicago.edu/news/the-tools-languages-and-technologies-ive-actually-used-in-ms-ads/" target="_blank" rel="noopener noreferrer">The Tools, Languages, and Technologies I've Actually Used in MS-ADS</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Based in</dt>
+              <dd>Chicago, IL.</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
     </section>
 
-    <!-- graph line drifting from hero into projects -->
-    <svg class="drift-line" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M-20,30 C300,120 640,10 880,110 S1150,200 1240,150" fill="none" stroke="rgba(201,138,147,0.28)" stroke-width="1.2"/>
-      <circle cx="300" cy="98" r="3" fill="rgba(201,138,147,0.4)"/>
-      <circle cx="880" cy="110" r="2.5" fill="rgba(169,155,198,0.45)"/>
-    </svg>
-
-    <!-- ───────── Projects: bookshelf ───────── -->
-    <section id="projects" class="projects" aria-labelledby="projectsTitle">
-      <header class="section-head">
-        <p class="kicker">01 — PROJECTS</p>
-        <h2 id="projectsTitle" class="reveal">A Library of Things I’ve Built</h2>
-        <p class="section-sub reveal d1">Each project is a chapter in what I’ve been learning, questioning, and creating.</p>
-      </header>
-
-      <div class="shelf-zone">
-        <div class="shelf-scroll" id="shelfScroll">
-          <div class="shelf" id="shelf" role="list" aria-label="Project books"></div>
-          <div class="shelf-board" aria-hidden="true"></div>
-        </div>
-        <p class="shelf-hint" aria-hidden="true">Hover or tap a book · Enter opens it</p>
-        <div class="book-info" id="bookInfo" aria-live="polite"></div>
+    <!-- ───────── Featured work ───────── -->
+    <section id="work" class="featured" aria-labelledby="featTitle">
+      <div class="section-head">
+        <h2 id="featTitle" class="reveal">Featured projects</h2>
       </div>
 
-      <!-- petals bridging into About -->
-      <div class="petal-drift" aria-hidden="true"><i></i><i></i><i></i></div>
-    </section>
-
-    <!-- ───────── About ───────── -->
-    <section id="about" class="about" aria-labelledby="aboutTitle">
-      <header class="section-head">
-        <p class="kicker">02 — ABOUT</p>
-        <h2 id="aboutTitle" class="reveal">A little about me</h2>
-      </header>
-
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <p>
-            I’m Yining, an Applied Data Science graduate student at the
-            University of Chicago with a background in Economics and Math from
-            Boston College. I’m currently exploring AI, LLMs, and agentic
-            workflows, and I’m especially interested in how technology can make
-            work smarter, more creative, and more human.
+      <ol class="feat-list">
+        <li class="feat reveal">
+          <p class="feat-meta">Agentic AI · MCP · RAG · Aug 2026 · Four-person team</p>
+          <h3 class="feat-title">
+            <a href="projects.html#voice-product-discovery">Voice Product Discovery</a>
+          </h3>
+          <p class="feat-line">
+            A voice-to-voice shopping agent that keeps a shopper's constraints straight
+            across turns and never cites a product it can't retrieve. I owned the Amazon
+            product-data ingestion and Chroma indexing, the LangGraph and MCP integration,
+            retrieval reconciliation and no-match handling, the live-search fallback, and
+            the reliability fixes before the demo.
           </p>
-          <p>
-            Outside of work and school, I’m happiest when I’m touching grass in
-            some form: hiking, climbing, skiing, snowboarding, or just exploring
-            somewhere new. I also love traveling, wandering through museums,
-            learning about history, and finding small details that make a place
-            feel alive. When I’m indoors, I enjoy cooking, baking, and making
-            sweet treats for people I love.
+          <p class="feat-result">
+            The reconciliation I built matches catalog results to live listings and flags
+            price gaps above 15%, and the no-match path returns an honest "nothing
+            qualifies" instead of a fabricated product.
           </p>
-        </div>
-      </div>
+        </li>
 
-      <!-- Rotating Polaroid photo gallery (built by js/gallery.js) -->
-      <div class="about-gallery" id="photoGallery" aria-label="A rotating gallery of personal photos"></div>
-    </section>
+        <li class="feat reveal">
+          <p class="feat-meta">Risk Modeling · Business Decisioning · Jun 2026</p>
+          <h3 class="feat-title">
+            <a href="projects.html#verizon-default-risk">Device Financing Credit Risk</a>
+          </h3>
+          <p class="feat-line">
+            Roughly 12,000 device-financing applications, framed as an approval
+            decision rather than a classification score. Logistic regression,
+            random forest and XGBoost compared, then the cutoff calibrated on the
+            precision-recall curve.
+          </p>
+          <p class="feat-result">
+            Logistic regression won on the balance of ROC-AUC, recall and
+            explainability. The recommended threshold projected about $25.75 in
+            incremental cash flow per applicant.
+          </p>
+        </li>
 
-    <!-- ───────── Experience ───────── -->
-    <section id="experience" class="experience" aria-labelledby="expTitle">
-      <header class="section-head">
-        <p class="kicker">03 — EXPERIENCE</p>
-        <h2 id="expTitle" class="reveal">Where I’ve been</h2>
-      </header>
+        <li class="feat reveal">
+          <p class="feat-meta">RAG · Retrieval Evaluation · May 2026</p>
+          <h3 class="feat-title">
+            <a href="projects.html#research-paper-rag">Research Paper RAG</a>
+          </h3>
+          <p class="feat-line">
+            Retrieval over 75 arXiv papers built as an experiment: two chunking
+            strategies crossed with three retrieval methods and four prompts,
+            scored with RAGAS plus a deterministic Hit@3 against ground-truth qrels.
+          </p>
+          <p class="feat-result">
+            Section-aware chunking with cosine retrieval reached 0.96 faithfulness.
+            The same evaluation found the real ceiling: Hit@3 never passed 0.25, so
+            retrieval rather than generation was capping the system.
+          </p>
+        </li>
+      </ol>
 
-      <div class="vine-wrap" id="vineWrap">
-        <svg class="vine-svg" id="vineSvg" aria-hidden="true"></svg>
-        <ol class="timeline" id="timeline">
-          <li class="tl-item">
-            <span class="tl-flower" style="--fc:#E07A5F" aria-hidden="true"></span>
-            <div class="tl-card">
-              <h3>Boston College</h3>
-              <p class="tl-role">B.A. in Economics &amp; Mathematics</p>
-            </div>
-          </li>
-          <li class="tl-item">
-            <span class="tl-flower" style="--fc:#C3B2D9" aria-hidden="true"></span>
-            <div class="tl-card">
-              <h3>State Street</h3>
-              <ul class="tl-tags">
-                <li>analytics</li><li>automation</li><li>dashboards</li>
-                <li>risk reporting</li><li>portfolio services</li><li>stakeholder-facing work</li>
-              </ul>
-            </div>
-          </li>
-          <li class="tl-item">
-            <span class="tl-flower" style="--fc:#E8B4B8" aria-hidden="true"></span>
-            <div class="tl-card">
-              <h3>Curajoy</h3>
-              <ul class="tl-tags">
-                <li>product &amp; project experience</li><li>mentorship</li><li>user-facing thinking</li>
-              </ul>
-            </div>
-          </li>
-          <li class="tl-item">
-            <span class="tl-flower" style="--fc:#C98A93" aria-hidden="true"></span>
-            <div class="tl-card">
-              <h3>University of Chicago <span class="tl-badge">CURRENT</span></h3>
-              <p class="tl-role">M.S. in Applied Data Science</p>
-            </div>
-          </li>
-          <li class="tl-item">
-            <span class="tl-flower" style="--fc:#A99BC6" aria-hidden="true"></span>
-            <div class="tl-card">
-              <h3>ISACA</h3>
-              <ul class="tl-tags">
-                <li>enterprise risk management</li><li>AI tool evaluation</li>
-                <li>OneTrust</li><li>reporting workflows</li><li>risk data</li>
-              </ul>
-            </div>
-          </li>
-        </ol>
-        <div class="tl-petals" aria-hidden="true"><i></i><i></i><i></i></div>
-      </div>
-    </section>
-
-    <!-- ───────── Skills ───────── -->
-    <section id="skills" class="skills" aria-labelledby="skillsTitle">
-      <div class="skills-inner">
-        <div class="dandelion-visualization">
-          <button id="dandelionControl" class="dandelion-control" type="button"
-                  aria-label="Interactive visualization of Yining’s technical skills"
-                  aria-describedby="dandelionInstructions">
-            <canvas id="skillsDandelion" aria-hidden="true"></canvas>
-            <span id="dandelionInstructions" class="skills-sr-only">Press Enter or Space to send the skill seeds into the wind. The dandelion will rebuild automatically.</span>
-          </button>
-          <ul id="dandelionSkillList" class="skills-sr-only" aria-label="Technical skills"></ul>
-        </div>
-
-        <header class="skills-copy">
-          <p class="kicker">04 - SKILLS</p>
-          <h2 id="skillsTitle" class="reveal">what I work with</h2>
-        </header>
-      </div>
-    </section>
-
-    <!-- ───────── Contact ───────── -->
-    <section id="contact" class="contact" aria-labelledby="contactTitle">
-      <!-- floral motion video background (decorative) -->
-      <video class="contact-bg-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
-        <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/flowers_motion_r54og5.webm" type="video/webm" />
-        <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/flowers_motion_r54og5.mp4" type="video/mp4" />
-      </video>
-      <div class="contact-overlay" aria-hidden="true"></div>
-
-      <div class="contact-inner">
-        <p class="kicker">05 — CONTACT</p>
-        <h2 id="contactTitle" class="reveal">Let’s build something meaningful together.</h2>
-        <p class="contact-sub reveal d1">Open to conversations about AI, data, and interesting problems.</p>
-        <div class="contact-links reveal d2">
-          <a class="btn btn-primary" href="mailto:ymao@uchicago.edu">School Email</a>
-          <a class="btn btn-ghost" href="mailto:yiningmaomao@gmail.com">Personal Email</a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a class="btn btn-ghost" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-      </div>
-
-      <footer class="footer">© 2026 Yining Mao · Built with curiosity</footer>
+      <p class="feat-all reveal">
+        <a class="link-wipe" href="projects.html">See all fourteen projects</a>
+      </p>
     </section>
   </main>
 
-  <!-- ───────── Open-book project modal ───────── -->
-  <div class="book-modal" id="bookModal" role="dialog" aria-modal="true" aria-labelledby="bmTitle" hidden>
-    <div class="bm-backdrop" data-close></div>
-    <div class="bm-book">
-      <button class="bm-close" data-close aria-label="Back to shelf">✕ <span>Back to Shelf</span></button>
-      <div class="bm-spread">
-        <div class="bm-left">
-          <p class="bm-kicker" id="bmKicker"></p>
-          <h3 id="bmTitle"></h3>
-          <p class="bm-subtitle" id="bmSubtitle"></p>
-          <p class="bm-badge" id="bmBadge" hidden></p>
-          <p class="bm-mark" aria-hidden="true">✦ ✦ ✦</p>
-        </div>
-        <div class="bm-right">
-          <div class="bm-page" id="bmPage" tabindex="0"></div>
-          <div class="bm-controls">
-            <button class="bm-nav" id="bmPrev">← Previous</button>
-            <span class="bm-indicator" id="bmIndicator" aria-live="polite"></span>
-            <button class="bm-nav" id="bmNext">Next →</button>
-          </div>
-        </div>
-      </div>
+  <section id="contact" class="contact" aria-labelledby="contactTitle">
+    <div class="contact-inner">
+      <h2 id="contactTitle" class="reveal">Let's connect.</h2>
+      <p class="contact-note reveal d1">
+        I'm graduating in December 2026 and looking for full-time opportunities
+        across data science, AI engineering, and data/AI consulting.
+      </p>
+      <p class="contact-email reveal d1">
+        <a class="link-wipe" href="mailto:ynmao@uchicago.edu">ynmao@uchicago.edu</a>
+      </p>
     </div>
-  </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Yining Mao · Chicago, IL</p>
+    <p class="footer-links">
+      <a class="link-wipe" href="about.html">About</a>
+      <a class="link-wipe" href="projects.html">Projects</a>
+      <a class="link-wipe" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="link-wipe" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </footer>
 
   <script type="module" src="script.js"></script>
-  <script type="module" src="js/dandelion.js"></script>
-  <script src="js/cursor.js" defer></script>
-  <script src="js/flowers.js" defer></script>
-  <script type="module" src="js/gallery.js"></script>
-  <script src="js/aboutText.js" defer></script>
 </body>
 </html>

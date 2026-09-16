@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Yining Mao</title>
+  <meta name="description" content="Fourteen projects across agentic AI, retrieval, machine learning, and analytics, plus a co-authored arXiv preprint on clinical knowledge graphs." />
+  <meta name="author" content="Yining Mao" />
+  <meta name="theme-color" content="#22262F" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Projects — Yining Mao" />
+  <meta property="og:description" content="Fourteen projects across agentic AI, retrieval, machine learning, and analytics, plus a co-authored arXiv preprint on clinical knowledge graphs." />
+  <meta property="og:url" content="https://ymao21.github.io/projects.html" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="canonical" href="https://ymao21.github.io/projects.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='Inter,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23A6B1E1' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <a class="logo" href="index.html">Yining Mao</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="navLinks" class="nav-links" aria-label="Main">
+      <a class="link-wipe" href="index.html">Home</a>
+      <a class="link-wipe" href="about.html">About</a>
+      <a class="link-wipe is-current" href="projects.html" aria-current="page">Projects</a>
+      <a class="link-wipe" href="#contact">Contact</a>
+      <a class="nav-cta" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="projects" class="projects" aria-labelledby="projectsTitle">
+      <div class="section-head">
+        <h2 id="projectsTitle" class="reveal">Selected projects</h2>
+        <p class="section-sub reveal d1">
+          Fourteen projects since 2023. Start with the four featured.
+        </p>
+      </div>
+
+      <div class="shelf-zone">
+        <div class="shelf-scroll" id="shelfScroll">
+          <div class="shelf-rail">
+            <div class="shelf" id="shelf" role="group" aria-label="Projects as books on a shelf"></div>
+            <div class="shelf-board" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="shelf-hint" id="shelfHint">Hover a book to preview · click to open the full write-up</p>
+
+        <!-- shelf = interaction · preview = detail · index = fast scan -->
+        <div class="shelf-lower">
+          <div class="preview" id="bookPreview" aria-live="polite"></div>
+          <div class="index-block">
+            <h3 class="mini-label">All projects</h3>
+            <ul class="proj-index" id="projIndex"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="publication" aria-labelledby="pubTitle">
+      <div class="section-head">
+        <p class="kicker">Research</p>
+        <h2 id="pubTitle" class="reveal">Publication</h2>
+      </div>
+
+      <div class="pub-list">
+        <article class="pub reveal">
+          <p class="pub-meta">arXiv preprint · cs.LG, cs.AI · August 2026</p>
+          <h3 class="pub-title">
+            Clinical Graph-JEPA: Predictive Patient-State Knowledge Graphs for
+            Cognitive Decision Support
+          </h3>
+          <p class="pub-authors">
+            Kushagra Yadav, Nalin Prabhath, Amit Lamba, James E. Schrager,
+            Goeun Han, <span class="pub-me">Yining Mao</span>
+          </p>
+          <p class="pub-body">
+            Clinical records hold rich evidence about patient state, but extraction
+            errors, ontology mismatch, missing relations, and temporal ambiguity all
+            propagate downstream. The paper treats a clinical knowledge graph as a
+            predictive patient-state representation rather than a static extraction
+            artifact, combining multi-agent relation proposal, ontology-aware
+            normalization, deterministic evidence scoring, and JEPA-based latent
+            refinement over MIMIC-IV admissions.
+          </p>
+          <p class="pub-result">
+            Evaluated with leakage-free leave-one-out edge recovery and held-out
+            batch-mask protocols. Injecting real discharge-note representations into
+            note-grounded entities improved leave-one-out MRR by 31% relative,
+            under the same cohort and evaluation protocol.
+          </p>
+          <p class="pub-role">
+            <b>My contribution</b>
+            I was part of the original hackathon team that built the system this
+            paper grew out of, and presented it during the hackathon. On the paper
+            itself I contributed to writing and editing and produced the poster and
+            presentation materials, rather than the later methodology and
+            implementation.
+          </p>
+          <p class="pub-links">
+            <a class="link-wipe" href="https://arxiv.org/abs/2608.22583" target="_blank" rel="noopener noreferrer">arXiv:2608.22583</a>
+            <a class="link-wipe" href="https://arxiv.org/pdf/2608.22583" target="_blank" rel="noopener noreferrer">PDF</a>
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────── Project detail dialog ───────── -->
+  <div class="pm" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
+    <div class="pm-backdrop" data-close></div>
+    <div class="pm-panel" role="document">
+      <button class="pm-close" data-close type="button">Back to shelf</button>
+      <div class="pm-grid">
+        <aside class="pm-side">
+          <p class="pm-type" id="pmType"></p>
+          <h3 id="pmTitle"></h3>
+          <p class="pm-sub" id="pmSubtitle"></p>
+          <p class="pm-badge" id="pmBadge" hidden></p>
+          <p class="pm-team" id="pmTeam" hidden></p>
+          <div class="pm-links" id="pmLinks"></div>
+        </aside>
+        <div class="pm-body" id="pmBody" tabindex="0"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="contact" class="contact" aria-labelledby="contactTitle">
+    <div class="contact-inner">
+      <h2 id="contactTitle" class="reveal">Let's connect.</h2>
+      <p class="contact-note reveal d1">
+        I'm graduating in December 2026 and looking for full-time opportunities
+        across data science, AI engineering, and data/AI consulting.
+      </p>
+      <p class="contact-email reveal d1">
+        <a class="link-wipe" href="mailto:ynmao@uchicago.edu">ynmao@uchicago.edu</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Yining Mao · Chicago, IL</p>
+    <p class="footer-links">
+      <a class="link-wipe" href="about.html">About</a>
+      <a class="link-wipe" href="projects.html">Projects</a>
+      <a class="link-wipe" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="link-wipe" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
