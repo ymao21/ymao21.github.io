@@ -15,7 +15,9 @@
   <meta name="twitter:card" content="summary" />
 
   <link rel="canonical" href="https://ymao21.github.io/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='Inter,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23A6B1E1' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,31 +38,38 @@
       <a class="link-wipe" href="about.html">About</a>
       <a class="link-wipe" href="projects.html">Projects</a>
       <a class="link-wipe" href="#contact">Contact</a>
-      <a class="nav-cta" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="nav-cta" href="resume.html">Resume</a>
     </nav>
   </header>
 
   <main id="home">
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-inner">
+        <img class="portrait"
+             src="img/yining-mao.jpg"
+             srcset="img/yining-mao.jpg 640w, img/yining-mao@2x.jpg 1280w"
+             sizes="(max-width: 760px) 168px, 270px"
+             width="270" height="270"
+             alt="Portrait of Yining Mao" />
         <div class="hero-copy">
           <h1 id="heroTitle">Yining Mao</h1>
           <p class="hero-role">Applied AI, Data &amp; Machine Learning</p>
 
           <p class="hero-sub">
-            I build applied AI and data systems: agent pipelines, retrieval,
-            multimodal models, and the analysis that turns a model into a decision
-            someone can act on.
+            I like working on problems where data, AI, and business overlap. I've
+            built machine learning models, retrieval systems, and agent workflows,
+            usually with the same question in mind: does this actually help someone
+            make a better decision or get something done?
           </p>
           <p class="hero-sub">
-            Four years at State Street across risk, analytics, algorithmic trading,
-            and automation, now finishing an M.S. in Applied Data Science at the
-            University of Chicago.
+            Before UChicago, I spent four years at State Street working across risk,
+            analytics, algorithmic trading, and automation. I'm now finishing my
+            M.S. in Applied Data Science.
           </p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="projects.html">View Projects</a>
-            <a class="btn btn-outline" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+            <a class="btn btn-outline" href="resume.html">Resume</a>
           </div>
 
           <ul class="hero-social">
@@ -69,8 +78,8 @@
           </ul>
         </div>
 
-        <aside class="hero-facts" aria-label="At a glance">
-          <dl>
+        <div class="hero-facts" aria-label="At a glance">
+            <dl>
             <div>
               <dt>Recognition</dt>
               <dd>
@@ -90,8 +99,8 @@
               <dt>Based in</dt>
               <dd>Chicago, IL.</dd>
             </div>
-          </dl>
-        </aside>
+            </dl>
+        </div>
       </div>
     </section>
 
@@ -103,26 +112,28 @@
 
       <ol class="feat-list">
         <li class="feat reveal">
-          <p class="feat-meta">Agentic AI · MCP · RAG · Aug 2026 · Four-person team</p>
+          <p class="feat-meta">Agentic AI · MCP · RAG · Jun–Aug 2026 · Four-person team</p>
           <h3 class="feat-title">
             <a href="projects.html#voice-product-discovery">Voice Product Discovery</a>
           </h3>
           <p class="feat-line">
-            A voice-to-voice shopping agent that keeps a shopper's constraints straight
-            across turns and never cites a product it can't retrieve. I owned the Amazon
-            product-data ingestion and Chroma indexing, the LangGraph and MCP integration,
-            retrieval reconciliation and no-match handling, the live-search fallback, and
-            the reliability fixes before the demo.
+            A four-person team project: a voice-and-text shopping agent that keeps a
+            shopper's constraints straight across turns and never recommends a product
+            it can't cite. I worked on the Amazon product-data ingestion and Chroma
+            indexing, the LangGraph and MCP integration, retrieval reconciliation and
+            no-match handling, the live-search fallback, and the reliability fixes
+            before the demo.
           </p>
           <p class="feat-result">
-            The reconciliation I built matches catalog results to live listings and flags
-            price gaps above 15%, and the no-match path returns an honest "nothing
-            qualifies" instead of a fabricated product.
+            Grounding is enforced in code rather than asked for in a prompt: the
+            reconciliation step flags catalog-to-live price gaps above 15%, and a
+            request nothing satisfies returns an explicit no-match instead of an
+            invented product.
           </p>
         </li>
 
         <li class="feat reveal">
-          <p class="feat-meta">Risk Modeling · Business Decisioning · Jun 2026</p>
+          <p class="feat-meta">Risk Modeling · Business Decisioning · Sep–Dec 2025</p>
           <h3 class="feat-title">
             <a href="projects.html#verizon-default-risk">Device Financing Credit Risk</a>
           </h3>
@@ -158,7 +169,7 @@
       </ol>
 
       <p class="feat-all reveal">
-        <a class="link-wipe" href="projects.html">See all fourteen projects</a>
+        <a class="link-wipe" href="projects.html">See all fifteen projects</a>
       </p>
     </section>
   </main>

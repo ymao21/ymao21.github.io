@@ -189,8 +189,10 @@ const coarsePointer = window.matchMedia('(pointer: coarse)');
   /* ----- readable index: every project as plain horizontal text ----- */
   const index = document.getElementById('projIndex');
   if (index) {
-    const ordered = [...projects].sort(
-      (a, b) => Number(b.featured) - Number(a.featured)
+    // featured first, then most recent by the date the work ended
+    const ordered = [...projects].sort((a, b) =>
+      Number(b.featured) - Number(a.featured) ||
+      String(b.ended).localeCompare(String(a.ended))
     );
     index.innerHTML = ordered.map((p) => `
       <li>
@@ -207,6 +209,24 @@ const coarsePointer = window.matchMedia('(pointer: coarse)');
       if (!trigger) return;
       const p = projects.find((item) => item.slug === trigger.dataset.open);
       if (p) openProject(p, bookEls.get(p.slug));
+    });
+  }
+
+  /* ----- "All projects" disclosure: closed until asked for ----- */
+  const archiveToggle = document.getElementById('archiveToggle');
+  const archivePanel = document.getElementById('archivePanel');
+  if (archiveToggle && archivePanel) {
+    archiveToggle.innerHTML =
+      `All projects <span class="archive-count">${projects.length}</span>`;
+    archiveToggle.addEventListener('click', () => {
+      const open = archiveToggle.getAttribute('aria-expanded') === 'true';
+      archiveToggle.setAttribute('aria-expanded', String(!open));
+      archiveToggle.innerHTML = open
+        ? `All projects <span class="archive-count">${projects.length}</span>`
+        : 'Hide projects';
+      archivePanel.classList.toggle('is-open', !open);
+      // keep collapsed rows out of the tab order and the a11y tree
+      archivePanel.inert = open;
     });
   }
 

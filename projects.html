@@ -4,18 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects — Yining Mao</title>
-  <meta name="description" content="Fourteen projects across agentic AI, retrieval, machine learning, and analytics, plus a co-authored arXiv preprint on clinical knowledge graphs." />
+  <meta name="description" content="Fifteen projects across agentic AI, retrieval, machine learning, analytics, and full-stack engineering, plus a co-authored arXiv preprint on clinical knowledge graphs." />
   <meta name="author" content="Yining Mao" />
   <meta name="theme-color" content="#22262F" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Projects — Yining Mao" />
-  <meta property="og:description" content="Fourteen projects across agentic AI, retrieval, machine learning, and analytics, plus a co-authored arXiv preprint on clinical knowledge graphs." />
+  <meta property="og:description" content="Fifteen projects across agentic AI, retrieval, machine learning, analytics, and full-stack engineering, plus a co-authored arXiv preprint on clinical knowledge graphs." />
   <meta property="og:url" content="https://ymao21.github.io/projects.html" />
   <meta name="twitter:card" content="summary" />
 
   <link rel="canonical" href="https://ymao21.github.io/projects.html" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='Inter,Helvetica,sans-serif' font-size='16' font-weight='700' fill='%23A6B1E1' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,7 +38,7 @@
       <a class="link-wipe" href="about.html">About</a>
       <a class="link-wipe is-current" href="projects.html" aria-current="page">Projects</a>
       <a class="link-wipe" href="#contact">Contact</a>
-      <a class="nav-cta" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="nav-cta" href="resume.html">Resume</a>
     </nav>
   </header>
 
@@ -45,7 +47,7 @@
       <div class="section-head">
         <h2 id="projectsTitle" class="reveal">Selected projects</h2>
         <p class="section-sub reveal d1">
-          Fourteen projects since 2023. Start with the four featured.
+          Fifteen projects since 2023. Start with the four featured.
         </p>
       </div>
 
@@ -58,12 +60,16 @@
         </div>
         <p class="shelf-hint" id="shelfHint">Hover a book to preview · click to open the full write-up</p>
 
-        <!-- shelf = interaction · preview = detail · index = fast scan -->
-        <div class="shelf-lower">
-          <div class="preview" id="bookPreview" aria-live="polite"></div>
-          <div class="index-block">
-            <h3 class="mini-label">All projects</h3>
-            <ul class="proj-index" id="projIndex"></ul>
+        <!-- shelf and preview are primary; the archive opens only on request -->
+        <div class="preview" id="bookPreview" aria-live="polite"></div>
+
+        <div class="archive">
+          <button class="archive-toggle" id="archiveToggle" type="button"
+                  aria-expanded="false" aria-controls="archivePanel">All projects</button>
+          <div class="archive-panel" id="archivePanel" inert>
+            <div class="archive-inner">
+              <ul class="proj-index" id="projIndex"></ul>
+            </div>
           </div>
         </div>
       </div>
