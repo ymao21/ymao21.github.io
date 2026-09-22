@@ -17,12 +17,15 @@
  * @property {string} result       - measured outcome, or the honest finding
  * @property {string} year         - when the work was done
  * @property {string[]} stack
- * @property {boolean} featured    - the small set surfaced first; keep to four
+ * @property {boolean} featured    - the small set surfaced first; keep to five
  * @property {string} [badge]      - award or recognition
  * @property {string} [team]       - collaboration note, when not solo
  * @property {string} [myRole]     - what I personally owned on a team project
  * @property {string} github
  * @property {{label:string,url:string}[]} [links] - extra external links
+ * @property {{src:string,alt:string,caption:string}[]} [visuals]
+ *   - figures from the project's own repo or deck, first one leads the
+ *     preview; omit when none exists
  * @property {string} cover        - spine / cover color
  * @property {string} foil         - text color used on that cover
  * @property {{width:number,height:number}} dimensions
@@ -49,6 +52,18 @@ export const projects = [
     team: "4-person team, UChicago ML II",
     myRole:
       "Owned data cleaning and preprocessing, MFCC feature extraction, and the baseline modeling. Compared logistic regression against random forest, selected random forest as the stronger baseline, built the first deep-learning model, and left the team a reusable preprocessing and modeling pipeline.",
+    visuals: [
+      {
+        src: "img/projects/speech-emotion-recognition-1.jpg",
+        alt: "Waveforms, mel spectrograms and MFCCs for sample clips across emotions",
+        caption: "Waveforms, mel spectrograms and MFCCs by emotion"
+      },
+      {
+        src: "img/projects/speech-emotion-recognition-2.jpg",
+        alt: "Random forest baseline slide with its confusion matrix, 0.587 test accuracy and 0.547 macro F1",
+        caption: "The random forest baseline and its confusion matrix"
+      }
+    ],
     github: "https://github.com/ymao21/Speech-Emotion-Recognition-",
     cover: "#B9C3DE",
     foil: "#2A2F44",
@@ -91,6 +106,23 @@ export const projects = [
     ended: "2026-03",
     stack: ["Python", "scikit-learn", "MiniBatchKMeans", "TF-IDF", "Truncated SVD", "UMAP"],
     featured: false,
+    visuals: [
+      {
+        src: "img/projects/spotify-song-recommender-1.jpg",
+        alt: "Table of the eight clusters with nickname, audio profile and top lyric terms",
+        caption: "Cluster profiles: what each group sounds like"
+      },
+      {
+        src: "img/projects/spotify-song-recommender-2.jpg",
+        alt: "Elbow, silhouette and cluster-balance plots used to choose k = 8",
+        caption: "Choosing the number of clusters"
+      },
+      {
+        src: "img/projects/spotify-song-recommender-3.jpg",
+        alt: "Recommendation demo table: nearest-neighbour tracks within one cluster with cosine distances",
+        caption: "Content-based nearest-neighbour recommendations"
+      }
+    ],
     github: "https://github.com/ymao21/spotify-song-clustering-recommender",
     cover: "#9FAFC4",
     foil: "#1E2632",
@@ -114,6 +146,23 @@ export const projects = [
     ended: "2026-06",
     stack: ["Python", "scikit-learn", "K-Means", "RFM", "PCA", "Plotly"],
     featured: false,
+    visuals: [
+      {
+        src: "img/projects/ecommerce-segmentation-1.jpg",
+        alt: "Segment profile table and radar chart comparing recency, frequency, monetary value and category diversity",
+        caption: "Segment profiles from the stakeholder deck"
+      },
+      {
+        src: "img/projects/ecommerce-segmentation-2.jpg",
+        alt: "Swimlane diagram of real-time customer segmentation and incentive delivery",
+        caption: "Real-time segmentation and incentive delivery flow"
+      },
+      {
+        src: "img/projects/ecommerce-segmentation-3.jpg",
+        alt: "Slide on the high-engagement segment and the expected impact of personalization",
+        caption: "The high-engagement segment and expected lift"
+      }
+    ],
     github: "https://github.com/ymao21/ecommerce-customer-segmentation",
     cover: "#E3E1DA",
     foil: "#3A3B44",
@@ -134,7 +183,24 @@ export const projects = [
     year: "Jan–Apr 2026",
     ended: "2026-04",
     stack: ["Python", "BERTopic", "DistilBERT", "spaCy", "UMAP", "HDBSCAN", "PyTorch", "Hugging Face"],
-    featured: false,
+    featured: true,
+    visuals: [
+      {
+        src: "img/projects/ai-industry-analysis-1.jpg",
+        alt: "Treemap of the industries most likely to be impacted by AI, sized by news coverage and colored by sentiment",
+        caption: "Industries most likely to be impacted"
+      },
+      {
+        src: "img/projects/ai-industry-analysis-2.jpg",
+        alt: "Bubble chart of industry AI impact exposure by mean sentiment and share of positive articles",
+        caption: "Topic-level sentiment and exposure by industry"
+      },
+      {
+        src: "img/projects/ai-industry-analysis-3.jpg",
+        alt: "Line chart of rolling three-month sentiment by industry, 2022 to 2026",
+        caption: "Topic-level sentiment over time"
+      }
+    ],
     github: "https://github.com/ymao21/AI-Industry-Analysis-using-NLP-Transformer-Models",
     cover: "#B0BBDA",
     foil: "#242A47",
@@ -156,13 +222,25 @@ export const projects = [
     ended: "2026-07",
     stack: ["Python", "LangGraph", "OpenAI", "mlx-whisper", "Pydantic", "Gradio", "Text-to-Speech"],
     featured: false,
+    visuals: [
+      {
+        src: "img/projects/sar-coach-1.jpg",
+        alt: "SAR Coach interface: choosing a behavioral question and interviewer voice",
+        caption: "The SAR Coach interface"
+      },
+      {
+        src: "img/projects/sar-coach-2.jpg",
+        alt: "SAR Coach detailed evaluation view with Situation, Action and Result scores",
+        caption: "Detailed SAR evaluation"
+      }
+    ],
     github: "https://github.com/ymao21/SAR-Coach",
     cover: "#CBD2DC",
     foil: "#2A3040",
     dimensions: { width: 56, height: 264 }
   },
 
-  /* ---------- featured: the four surfaced first ---------- */
+  /* ---------- featured: surfaced first ---------- */
   {
     slug: "verizon-default-risk",
     title: "Device Financing Credit Risk",
@@ -179,6 +257,23 @@ export const projects = [
     ended: "2025-12",
     stack: ["Python", "scikit-learn", "Logistic Regression", "XGBoost", "Threshold Tuning", "Business Analytics"],
     featured: true,
+    visuals: [
+      {
+        src: "img/projects/verizon-default-risk-1.jpg",
+        alt: "Business impact table and chart showing net cash flow per applicant under the current and recommended model",
+        caption: "Business impact of the recommended threshold"
+      },
+      {
+        src: "img/projects/verizon-default-risk-2.jpg",
+        alt: "Model comparison table and precision-recall curve for logistic regression",
+        caption: "Why logistic regression won the comparison"
+      },
+      {
+        src: "img/projects/verizon-default-risk-3.jpg",
+        alt: "Feature importance chart and coefficient table for the predictors of default",
+        caption: "The hierarchy of predictors"
+      }
+    ],
     github: "https://github.com/ymao21/Verizon-default-risk-modeling-project",
     cover: "#C6CCE8",
     foil: "#2C3150",
@@ -224,6 +319,23 @@ export const projects = [
     team: "4-person team",
     myRole:
       "I worked on the Amazon product-data ingestion and Chroma indexing, the LangGraph and MCP integration, retrieval reconciliation and no-match handling, the live-search fallback, and the reliability fixes before the demo.",
+    visuals: [
+      {
+        src: "img/projects/voice-product-discovery-1.jpg",
+        alt: "System architecture: React browser client, FastAPI gateway with Whisper, LangGraph and TTS, an MCP server exposing rag.search and web.search, a Chroma index and search providers",
+        caption: "System architecture"
+      },
+      {
+        src: "img/projects/voice-product-discovery-2.jpg",
+        alt: "LangGraph routing diagram: router, safety and clarify branches, planner, rag.search, web.search fallback, reconcile and answer critic",
+        caption: "LangGraph routes by safety, intent and evidence"
+      },
+      {
+        src: "img/projects/voice-product-discovery-3.jpg",
+        alt: "Evaluation summary: 17 of 19 targets met, with results for router F1, retrieval recall, answer faithfulness, answer relevance and latency",
+        caption: "Evaluation results against targets"
+      }
+    ],
     github: "https://github.com/ymao21/voice-product-discovery",
     cover: "#A6B1E1",
     foil: "#23284A",
@@ -283,6 +395,23 @@ export const projects = [
     team: "4-person team, UChicago Computer Vision",
     myRole:
       "Built and evaluated the dog-breed classification models and the training and evaluation pipeline, including the architecture comparison and performance analysis.",
+    visuals: [
+      {
+        src: "img/projects/dog-vision-1.jpg",
+        alt: "Diagram of the dog replacement pipeline: inputs, pose, segment, warp, diffuse, outputs",
+        caption: "The full replacement pipeline"
+      },
+      {
+        src: "img/projects/dog-vision-2.jpg",
+        alt: "Segmentation comparison of YOLO-seg and SAM2 with an explanation of how SAM2 works",
+        caption: "Segmentation with YOLO-seg and SAM2"
+      },
+      {
+        src: "img/projects/dog-vision-3.jpg",
+        alt: "Diffusion inpainting comparison across Stable Diffusion XL, RealVisXL and Realistic Vision",
+        caption: "Comparing diffusion inpainting models"
+      }
+    ],
     github: "https://github.com/ymao21/dog-vision-deep-learning",
     cover: "#DCE0EC",
     foil: "#2B3050",
@@ -306,6 +435,23 @@ export const projects = [
     ended: "2025-12",
     stack: ["PySpark", "Spark MLlib", "Dataproc", "Google Cloud Storage", "Parquet", "MinHash-LSH"],
     featured: false,
+    visuals: [
+      {
+        src: "img/projects/amazon-review-similarity-1.jpg",
+        alt: "Scatter plots of average rating against review volume and price across Amazon products",
+        caption: "What drives review volume"
+      },
+      {
+        src: "img/projects/amazon-review-similarity-2.jpg",
+        alt: "Bar charts of duplicated review titles versus duplicated review texts",
+        caption: "Review title and text duplication"
+      },
+      {
+        src: "img/projects/amazon-review-similarity-3.jpg",
+        alt: "Most common words in 5-star versus 1-star reviews",
+        caption: "What 5-star and 1-star reviews emphasize"
+      }
+    ],
     github: "https://github.com/ymao21/amazon-reviews-ai-similarity",
     cover: "#9FAFC4",
     foil: "#1E2632",
@@ -348,6 +494,13 @@ export const projects = [
     ended: "2023-12",
     stack: ["React", "Redux", "Express", "PostgreSQL", "AWS S3", "JWT", "Node.js"],
     featured: false,
+    visuals: [
+      {
+        src: "img/projects/snowshop-1.jpg",
+        alt: "SNOWSHOP edit-product dialog for a listed snowboard",
+        caption: "Editing a listing in SNOWSHOP"
+      }
+    ],
     github: "https://github.com/ymao21/SNOWSHOP",
     cover: "#B9C3DE",
     foil: "#2A2F44",
@@ -369,6 +522,13 @@ export const projects = [
     featured: false,
     year: "2023",
     ended: "2023-10",
+    visuals: [
+      {
+        src: "img/projects/slacker-1.jpg",
+        alt: "Slacker landing page with a Launch Demo Server button",
+        caption: "The Slacker landing page"
+      }
+    ],
     github: "https://github.com/ymao21/Slacker",
     cover: "#9FAFC4",
     foil: "#1E2632",
@@ -377,4 +537,4 @@ export const projects = [
 ];
 
 /** The book that the preview panel shows before any interaction. */
-export const defaultProjectSlug = "clinical-kg-multi-agent";
+export const defaultProjectSlug = "voice-product-discovery";

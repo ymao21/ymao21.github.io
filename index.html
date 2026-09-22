@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yining Mao — Data, AI &amp; Applied Machine Learning</title>
+  <title>Yining Mao — Applied AI, Data &amp; Machine Learning</title>
   <meta name="description" content="Yining Mao — Boston College graduate, master's student in Applied Data Science at the University of Chicago, Enterprise Risk Management Intern at ISACA, and former State Street associate working across analytics, risk, algorithmic trading, and automation." />
   <meta name="author" content="Yining Mao" />
   <meta name="theme-color" content="#22262F" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Yining Mao — Data, AI &amp; Applied Machine Learning" />
+  <meta property="og:title" content="Yining Mao — Applied AI, Data &amp; Machine Learning" />
   <meta property="og:description" content="Industry experience at the intersection of data and business, with project work across LLM agents, RAG, multimodal models, and full-stack applications." />
   <meta property="og:url" content="https://ymao21.github.io/" />
   <meta name="twitter:card" content="summary" />
@@ -24,25 +24,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body id="top">
 
-  <a class="skip-link" href="#home">Skip to content</a>
+  <a class="skip-link" href="#projects">Skip to projects</a>
 
   <header class="nav" id="nav">
-    <a class="logo" href="index.html">Yining Mao</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="navLinks" class="nav-links" aria-label="Main">
-      <a class="link-wipe is-current" href="index.html" aria-current="page">Home</a>
-      <a class="link-wipe" href="about.html">About</a>
-      <a class="link-wipe" href="projects.html">Projects</a>
-      <a class="link-wipe" href="#contact">Contact</a>
-      <a class="nav-cta" href="resume.html">Resume</a>
+    <a class="logo" href="#top" aria-label="Yining Mao, back to top">Yining Mao</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#contact">Contact</a>
     </nav>
   </header>
 
-  <main id="home">
+  <main id="main">
+
+    <!-- ───────── Hero ───────── -->
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-inner">
         <img class="portrait"
@@ -56,181 +53,407 @@
           <p class="hero-role">Applied AI, Data &amp; Machine Learning</p>
 
           <p class="hero-sub">
-            I like working on problems where data, AI, and business overlap. I've
-            built machine learning models, retrieval systems, and agent workflows,
-            usually with the same question in mind: does this actually help someone
-            make a better decision or get something done?
+            I'm drawn to problems that sit at the intersection of data, AI, and
+            business. I enjoy building things, whether that means training a machine
+            learning model, designing a retrieval system, or experimenting with AI
+            agents, especially when the work is tied to a real problem rather than
+            just a technical exercise.
           </p>
           <p class="hero-sub">
-            Before UChicago, I spent four years at State Street working across risk,
-            analytics, algorithmic trading, and automation. I'm now finishing my
-            M.S. in Applied Data Science.
+            I'm currently finishing my M.S. in Applied Data Science at the University
+            of Chicago and exploring what can be built with applied AI.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="projects.html">View Projects</a>
-            <a class="btn btn-outline" href="resume.html">Resume</a>
+            <a class="btn btn-primary" href="#projects">View Projects <span class="btn-arrow" aria-hidden="true">↓</span></a>
+            <a class="btn btn-outline" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
             <a class="btn btn-outline" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="btn btn-outline" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hero-facts" aria-label="At a glance">
-            <dl>
-            <div>
-              <dt>Recognition</dt>
-              <dd>
-                Winner, 2026 Schmidt AI in Science Hackathon. Co-author,
-                <a class="link-wipe" href="https://arxiv.org/abs/2608.22583" target="_blank" rel="noopener noreferrer">Clinical Graph-JEPA</a>
-                (arXiv, 2026).
-              </dd>
+    <!-- ───────── Projects ───────── -->
+    <section id="projects" class="projects" aria-labelledby="projectsTitle">
+      <div class="section-head">
+        <p class="kicker">Projects</p>
+        <h2 id="projectsTitle" class="reveal">Things I've built</h2>
+      </div>
+
+      <div class="shelf-zone" id="shelfZone">
+        <div class="shelf-scroll" id="shelfScroll">
+          <div class="shelf-rail">
+            <div class="shelf" id="shelf" role="group" aria-label="Projects, shown as books on a shelf" aria-describedby="shelfHint"></div>
+            <div class="shelf-board" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="shelf-controls">
+          <p class="shelf-hint" id="shelfHint">Hover a book to preview it · click to open the project</p>
+          <div class="shelf-nav">
+            <button class="shelf-step" id="shelfPrev" type="button" aria-label="Previous project">
+              <span aria-hidden="true">←</span>
+            </button>
+            <span class="shelf-count" id="shelfCount" aria-hidden="true"></span>
+            <button class="shelf-step" id="shelfNext" type="button" aria-label="Next project">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p class="visually-hidden" id="shelfStatus" aria-live="polite"></p>
+        </div>
+
+        <!-- the preview always mirrors the selected book -->
+        <div class="preview" id="bookPreview"></div>
+
+        <div class="archive">
+          <button class="archive-toggle" id="archiveToggle" type="button"
+                  aria-expanded="false" aria-controls="archivePanel">All projects as a list</button>
+          <div class="archive-panel" id="archivePanel" inert>
+            <div class="archive-inner">
+              <ul class="proj-index" id="projIndex"></ul>
             </div>
-            <div>
-              <dt>Writing</dt>
-              <dd>
-                UChicago Data Science Institute, 2026:
-                <a class="link-wipe" href="https://datascience.uchicago.edu/news/the-tools-languages-and-technologies-ive-actually-used-in-ms-ads/" target="_blank" rel="noopener noreferrer">The Tools, Languages, and Technologies I've Actually Used in MS-ADS</a>
-              </dd>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research / publication: part of the work, not a separate destination -->
+      <div id="research" class="research" aria-labelledby="pubTitle">
+        <div class="section-head">
+          <h3 id="pubTitle" class="sub-head reveal">Research <span aria-hidden="true">/</span> Publication</h3>
+        </div>
+
+        <div class="pub-wrap">
+          <article class="pub card reveal">
+            <p class="pub-meta">arXiv preprint · cs.LG, cs.AI · August 2026</p>
+            <h4 class="pub-title">
+              <a class="card-link" href="https://arxiv.org/abs/2608.22583" target="_blank" rel="noopener noreferrer">
+                Clinical Graph-JEPA: Predictive Patient-State Knowledge Graphs for
+                Cognitive Decision Support
+              </a>
+            </h4>
+            <p class="pub-authors">
+              Kushagra Yadav, Nalin Prabhath, Amit Lamba, James E. Schrager,
+              Goeun Han, <span class="pub-me">Yining Mao</span>
+            </p>
+            <p class="pub-body">
+              Clinical records hold rich evidence about patient state, but extraction
+              errors, ontology mismatch, missing relations, and temporal ambiguity all
+              propagate downstream. The paper treats a clinical knowledge graph as a
+              predictive patient-state representation rather than a static extraction
+              artifact, combining multi-agent relation proposal, ontology-aware
+              normalization, deterministic evidence scoring, and JEPA-based latent
+              refinement over MIMIC-IV admissions.
+            </p>
+            <div class="pub-grid">
+              <p class="pub-result">
+                <b class="label">Evaluation</b>
+                Evaluated with leakage-free leave-one-out edge recovery and held-out
+                batch-mask protocols. Injecting real discharge-note representations into
+                note-grounded entities improved leave-one-out MRR by 31% relative,
+                under the same cohort and evaluation protocol.
+              </p>
+              <p class="pub-role">
+                <b class="label">My contribution</b>
+                I was part of the original hackathon team that built the system this
+                paper grew out of, and presented it during the hackathon. On the paper
+                itself I contributed to writing and editing and produced the poster and
+                presentation materials, rather than the later methodology and
+                implementation.
+              </p>
             </div>
-            <div>
-              <dt>Based in</dt>
-              <dd>Chicago, IL.</dd>
+            <p class="pub-actions">
+              <a class="btn btn-outline btn-small" href="https://arxiv.org/abs/2608.22583" target="_blank" rel="noopener noreferrer">arXiv:2608.22583</a>
+              <a class="btn btn-outline btn-small" href="https://arxiv.org/pdf/2608.22583" target="_blank" rel="noopener noreferrer">PDF</a>
+            </p>
+          </article>
+
+          <!-- ongoing work: no destination yet, so it is deliberately not a card -->
+          <article class="pub pub--static reveal" aria-labelledby="capTitle">
+            <p class="pub-meta">
+              <span class="pub-status">In progress</span>
+              M.S. in Applied Data Science capstone · University of Chicago · Team project
+            </p>
+            <h4 class="pub-title" id="capTitle">
+              Multimodal HM-MRI and Pathology Learning for Lesion-Level Prostate
+              Cancer Characterization
+            </h4>
+            <p class="pub-authors">
+              <span class="pub-me">Yining Mao</span>, Lam Tran, Jacob Park
+            </p>
+            <p class="pub-body">
+              This capstone explores how multimodal AI can combine prostate MRI and
+              digital pathology to support prostate cancer characterization. MRI
+              provides a broader view of suspicious regions within the prostate, while
+              pathology offers detailed tissue-level information after biopsy or
+              surgery. Our goal is to study how these two sources of information can be
+              connected and learned together rather than analyzed in isolation.
+            </p>
+            <figure class="pub-figure">
+              <img src="img/projects/capstone-pipeline.jpg" width="1440" height="810" loading="lazy" decoding="async"
+                   alt="Planned architecture: a pathology pipeline (slide QC, QuPath review, Slideflow tile extraction, foundation-model embeddings, pathology-derived targets) and an MRI pipeline feed multimodal training, where pathology teaches an MRI-only inference model that outputs cancer probability, Gleason grade group and the dominant lesion" />
+              <figcaption>The planned model architecture, from the project deck</figcaption>
+            </figure>
+            <div class="pub-grid">
+              <p class="pub-result">
+                <b class="label">What we're building</b>
+                Working with clinical imaging data from the University of Chicago
+                Medicine, our team is developing a pipeline for organizing, filtering,
+                and preparing MRI and whole-slide pathology images for multimodal
+                modeling. A major part of the project involves evaluating pathology
+                slide quality, including issues such as tissue overlap, saturation, and
+                vignetting, so that low-quality or uninformative images do not introduce
+                noise into the training data.
+              </p>
+              <p class="pub-role">
+                <b class="label">The research question</b>
+                From there, we are investigating ways to extract meaningful
+                representations from each modality and align information across MRI and
+                pathology. The broader research question is whether combining
+                macroscopic imaging information with microscopic tissue features can
+                produce a more complete representation of prostate cancer than either
+                modality alone.
+              </p>
             </div>
-            </dl>
+            <p class="pub-takeaway">
+              The project has given me experience working with large-scale medical
+              imaging data, multimodal machine learning, image quality assessment, and
+              the practical challenges of building AI systems around real clinical data.
+            </p>
+            <ul class="tags">
+              <li class="tag">Prostate MRI</li><li class="tag">Digital pathology</li>
+              <li class="tag">Whole-slide images</li><li class="tag">Multimodal learning</li>
+              <li class="tag">Image quality assessment</li><li class="tag">Medical imaging</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ───────── Featured work ───────── -->
-    <section id="work" class="featured" aria-labelledby="featTitle">
+    <!-- ───────── About ───────── -->
+    <section id="about" class="about" aria-labelledby="aboutTitle">
       <div class="section-head">
-        <h2 id="featTitle" class="reveal">Featured projects</h2>
+        <p class="kicker">About</p>
+        <h2 id="aboutTitle" class="reveal">A little about me</h2>
       </div>
 
-      <ol class="feat-list">
-        <li class="feat reveal">
-          <p class="feat-meta">Agentic AI · MCP · RAG · Jun–Aug 2026 · Four-person team</p>
-          <h3 class="feat-title">
-            <a href="projects.html#voice-product-discovery">Voice Product Discovery</a>
-          </h3>
-          <p class="feat-line">
-            A four-person team project: a voice-and-text shopping agent that keeps a
-            shopper's constraints straight across turns and never recommends a product
-            it can't cite. I worked on the Amazon product-data ingestion and Chroma
-            indexing, the LangGraph and MCP integration, retrieval reconciliation and
-            no-match handling, the live-search fallback, and the reliability fixes
-            before the demo.
-          </p>
-          <p class="feat-result">
-            Grounding is enforced in code rather than asked for in a prompt: the
-            reconciliation step flags catalog-to-live price gaps above 15%, and a
-            request nothing satisfies returns an explicit no-match instead of an
-            invented product.
-          </p>
-        </li>
+      <div class="about-body">
 
-        <li class="feat reveal">
-          <p class="feat-meta">Agentic AI · Clinical NLP · Apr 2026 · Hackathon team</p>
-          <h3 class="feat-title">
-            <a href="projects.html#clinical-kg-multi-agent">Clinical Knowledge Graph Agents</a>
-          </h3>
-          <p class="feat-line">
-            A 15-minute clinical visit leaves a transcript with symptoms, history and
-            treatments scattered through the conversation. The team built an
-            ontology-driven multi-agent system that turns those transcripts into a
-            validated, queryable knowledge graph. I contributed to prompt engineering,
-            ontology design, evaluation, and workflow development.
-          </p>
-          <p class="feat-result">
-            The composite score against the human-curated reference graph rose from
-            0.562 with the naive single-pass baseline to 0.933 with the multi-agent
-            system. It won the 2026 Schmidt AI in Science Hackathon.
-          </p>
-        </li>
+        <!-- 1. where I came from -->
+        <div class="story story--path">
+          <p class="story-label mini-label reveal">Where I came from</p>
+          <div class="story-text">
+            <p class="reveal">
+              I grew up in Chengdu, China, and moved to the U.S. for high school in the
+              Greater Boston area. I studied Economics and Math at Boston College and
+              started my career in finance at State Street, working across risk,
+              analytics, algorithmic trading, and automation. The part I liked most was
+              building things, which pulled me toward software engineering, then data
+              science, and eventually a master's in Applied Data Science at the
+              University of Chicago.</p>
+          </div>
+        </div>
 
-        <li class="feat reveal">
-          <p class="feat-meta">Risk Modeling · Business Decisioning · Sep–Dec 2025</p>
-          <h3 class="feat-title">
-            <a href="projects.html#verizon-default-risk">Device Financing Credit Risk</a>
-          </h3>
-          <p class="feat-line">
-            Roughly 12,000 device-financing applications, framed as an approval
-            decision rather than a classification score. Logistic regression,
-            random forest and XGBoost compared, then the cutoff calibrated on the
-            precision-recall curve.
-          </p>
-          <p class="feat-result">
-            Logistic regression won on the balance of ROC-AUC, recall and
-            explainability. The recommended threshold projected about $25.75 in
-            incremental cash flow per applicant.
-          </p>
-        </li>
+        <!-- 2. how I learn and build -->
+        <div class="story story--build">
+          <p class="story-label mini-label reveal">How I build</p>
+          <div class="story-text">
+            <p class="story-lede reveal">
+              Most of what I know I learned by building something badly first.</p>
+            <p class="reveal d1">
+              I picked up a Rubik's Cube to see if I could solve it, and then spent weeks
+              shaving seconds off the time. My projects tend to go the same way: the first
+              version works, and then I want to know exactly where it breaks.</p>
+          </div>
+        </div>
 
-        <li class="feat reveal">
-          <p class="feat-meta">RAG · Retrieval Evaluation · May 2026</p>
-          <h3 class="feat-title">
-            <a href="projects.html#research-paper-rag">Research Paper RAG</a>
-          </h3>
-          <p class="feat-line">
-            Retrieval over 75 arXiv papers built as an experiment: two chunking
-            strategies crossed with three retrieval methods and four prompts,
-            scored with RAGAS plus a deterministic Hit@3 against ground-truth qrels.
-          </p>
-          <p class="feat-result">
-            Section-aware chunking with cosine retrieval reached 0.96 faithfulness.
-            The same evaluation found the real ceiling: Hit@3 never passed 0.25, so
-            retrieval rather than generation was capping the system.
-          </p>
-        </li>
+        <!-- 3. outside work -->
+        <div class="story story--outside">
+          <p class="story-label mini-label reveal">Outside work</p>
+          <div class="story-text">
+            <p class="reveal">
+              When I'm not working, I'm usually outside. I've climbed in Yangshuo, Rumney, and
+              Yosemite, mostly bouldering and top roping, though I still haven't worked up
+              the courage to lead. I play tennis with friends and spend winters skiing or
+              snowboarding wherever I can, from New England and the Rockies to Les Trois
+              Vallées. I travel as much as I can manage, mostly around Europe and Asia,
+              and I'm enough of a foodie that I usually plan a trip around what I want to
+              eat before I work out what I want to see.</p>
+          </div>
+          <ul class="snapshots reveal d1" aria-label="A few photos from outside work">
+            <li class="snap snap--land">
+              <img src="img/about/climbing.jpg" width="900" height="675" loading="lazy" decoding="async"
+                   alt="Yining and two friends in climbing helmets and harnesses, smiling at the base of a rock face" />
+              <span class="snap-cap">Climbing with friends</span>
+            </li>
+            <li class="snap snap--tall">
+              <img src="img/about/keystone.jpg" width="675" height="900" loading="lazy" decoding="async"
+                   alt="Yining in a yellow jacket and pink snow pants next to the Keystone Bergman Bowl elevation sign" />
+              <span class="snap-cap">Keystone, Colorado</span>
+            </li>
+            <li class="snap snap--tall">
+              <img src="img/about/tennis.jpg" width="675" height="900" loading="lazy" decoding="async"
+                   alt="Two tennis rackets and balls on a green hard court" />
+              <span class="snap-cap">Tennis, Chicago</span>
+            </li>
+          </ul>
+        </div>
 
-        <li class="feat reveal">
-          <p class="feat-meta">NLP · Transformers at Scale · Jan–Apr 2026</p>
-          <h3 class="feat-title">
-            <a href="projects.html#ai-industry-analysis">AI Industry Analysis</a>
-          </h3>
-          <p class="feat-line">
-            Roughly 200,000 AI news articles is too much to read and too noisy to
-            summarize by hand. I built a three-stage pipeline over ~196K cleaned
-            documents: BERTopic for semantic topic discovery benchmarked against an
-            LDA baseline, spaCy NER for organizations and technologies, and a
-            fine-tuned DistilBERT sentiment classifier.
-          </p>
-          <p class="feat-result">
-            96% accuracy and 0.95 macro F1 on the Financial PhraseBank held-out set,
-            then applied out of domain across the full news corpus, so those figures
-            describe the benchmark rather than the articles themselves.
-          </p>
-        </li>
-      </ol>
+        <!-- 4. technical expertise -->
+        <div class="about-block" aria-labelledby="skillsTitle">
+          <h3 id="skillsTitle" class="sub-head reveal">Technical expertise</h3>
+          <div class="skill-grid">
+            <section class="skill-group reveal" aria-labelledby="skAi">
+              <h4 id="skAi" class="mini-label">AI / ML</h4>
+              <ul class="tags">
+                <li class="tag">LangGraph</li><li class="tag">MCP</li>
+                <li class="tag">RAG</li><li class="tag">GraphRAG</li><li class="tag">ChromaDB</li>
+                <li class="tag">PyTorch</li><li class="tag">Hugging Face</li>
+                <li class="tag">Transformers</li><li class="tag">BERTopic</li><li class="tag">spaCy</li>
+                <li class="tag">Whisper</li><li class="tag">SpeechT5</li>
+                <li class="tag">YOLO</li><li class="tag">SAM2</li><li class="tag">Stable Diffusion</li>
+              </ul>
+              <p class="skill-note"><span class="mini-label">Evaluation</span> RAGAS, Hit@k, LLM-as-judge</p>
+            </section>
 
-      <p class="feat-all reveal">
-        <a class="link-wipe" href="projects.html">See all projects</a>
-      </p>
+            <section class="skill-group reveal d1" aria-labelledby="skData">
+              <h4 id="skData" class="mini-label">Data</h4>
+              <ul class="tags">
+                <li class="tag">Python</li><li class="tag">SQL</li><li class="tag">R</li>
+                <li class="tag">pandas</li><li class="tag">NumPy</li><li class="tag">scikit-learn</li>
+                <li class="tag">PySpark</li><li class="tag">Spark MLlib</li>
+                <li class="tag">Statistical modeling</li><li class="tag">SARIMA</li>
+                <li class="tag">Data pipelines</li><li class="tag">Parquet</li>
+                <li class="tag">Baseline comparison</li><li class="tag">Error analysis</li>
+                <li class="tag">Clustering</li><li class="tag">RFM</li><li class="tag">XGBoost</li>
+              </ul>
+            </section>
+
+            <section class="skill-group reveal d2" aria-labelledby="skEng">
+              <h4 id="skEng" class="mini-label">Engineering</h4>
+              <ul class="tags">
+                <li class="tag">FastAPI</li><li class="tag">Flask</li><li class="tag">Gradio</li>
+                <li class="tag">REST APIs</li><li class="tag">Integrations</li>
+                <li class="tag">React</li><li class="tag">Redux</li><li class="tag">JavaScript</li>
+                <li class="tag">Node.js</li><li class="tag">Express</li><li class="tag">PostgreSQL</li>
+                <li class="tag">Google Cloud</li><li class="tag">Dataproc</li><li class="tag">GCS</li>
+                <li class="tag">AWS S3</li><li class="tag">Git</li>
+              </ul>
+            </section>
+
+            <section class="skill-group reveal d3" aria-labelledby="skBiz">
+              <h4 id="skBiz" class="mini-label">Analytics / Business</h4>
+              <ul class="tags">
+                <li class="tag">Risk and credit analytics</li>
+                <li class="tag">Experimentation</li><li class="tag">Threshold tuning</li>
+                <li class="tag">Tableau</li><li class="tag">Power BI</li>
+                <li class="tag">Data visualization</li><li class="tag">Dashboards</li>
+                <li class="tag">Business analysis</li>
+                <li class="tag">ERM frameworks</li><li class="tag">OneTrust</li>
+                <li class="tag">Stakeholder communication</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+
+        <!-- 5. education, recognition, writing -->
+        <div class="about-block about-ledger">
+          <section class="ledger-col" aria-labelledby="eduTitle">
+            <h3 id="eduTitle" class="sub-head reveal">Education</h3>
+            <div class="edu-list reveal">
+              <article class="edu">
+                <div class="edu-head">
+                  <h4>University of Chicago</h4>
+                  <p class="edu-meta">Expected Dec 2026</p>
+                </div>
+                <p class="edu-degree">M.S. in Applied Data Science</p>
+                <p class="edu-note">GPA 4.0 / 4.0</p>
+              </article>
+              <article class="edu">
+                <div class="edu-head">
+                  <h4>Boston College</h4>
+                  <p class="edu-meta">May 2021</p>
+                </div>
+                <p class="edu-degree">B.A. in Economics</p>
+                <p class="edu-note">Minor in Mathematics</p>
+              </article>
+            </div>
+            <p class="about-resume reveal">
+              <a class="btn btn-outline btn-small" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Full resume (PDF)</a>
+            </p>
+          </section>
+
+          <section class="ledger-col" aria-labelledby="recTitle">
+            <h3 id="recTitle" class="sub-head reveal">Recognition &amp; writing</h3>
+            <dl class="notes reveal">
+              <div>
+                <dt class="mini-label">Recognition</dt>
+                <dd>
+                  Winner,
+                  <a class="link" href="https://datascience.uchicago.edu/news/2026-ai-science-hackathon-tackles-real-world-scientific-challenges-using-ai/" target="_blank" rel="noopener noreferrer">2026 Schmidt AI in Science Hackathon</a>
+                </dd>
+                <dd>Co-author, <a class="link" href="#research">Clinical Graph-JEPA</a> (arXiv, 2026)</dd>
+              </div>
+              <div>
+                <dt class="mini-label">Writing</dt>
+                <dd>
+                  UChicago Data Science Institute, 2026:
+                  <a class="link" href="https://datascience.uchicago.edu/news/the-tools-languages-and-technologies-ive-actually-used-in-ms-ads/" target="_blank" rel="noopener noreferrer">The Tools, Languages, and Technologies I've Actually Used in MS-ADS</a>
+                </dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── Contact ───────── -->
+    <section id="contact" class="contact" aria-labelledby="contactTitle">
+      <div class="contact-inner">
+        <p class="kicker">Contact</p>
+        <h2 id="contactTitle" class="reveal">Let's connect.</h2>
+        <p class="contact-note reveal d1">
+          I'm graduating in December 2026 and looking for full-time opportunities
+          across data science, AI engineering, and data/AI consulting.
+        </p>
+        <p class="contact-email reveal d1">
+          <a class="link" href="mailto:ynmao@uchicago.edu">ynmao@uchicago.edu</a>
+        </p>
+        <div class="contact-actions reveal d2">
+          <a class="btn btn-primary" href="mailto:ynmao@uchicago.edu">Email me</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn btn-outline" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-outline" href="Yining_Mao_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
     </section>
   </main>
-
-  <section id="contact" class="contact" aria-labelledby="contactTitle">
-    <div class="contact-inner">
-      <h2 id="contactTitle" class="reveal">Let's connect.</h2>
-      <p class="contact-note reveal d1">
-        I'm graduating in December 2026 and looking for full-time opportunities
-        across data science, AI engineering, and data/AI consulting.
-      </p>
-      <p class="contact-email reveal d1">
-        <a class="link-wipe" href="mailto:ynmao@uchicago.edu">ynmao@uchicago.edu</a>
-      </p>
-    </div>
-  </section>
 
   <footer class="footer">
     <p>© 2026 Yining Mao · Chicago, IL</p>
     <p class="footer-links">
-      <a class="link-wipe" href="about.html">About</a>
-      <a class="link-wipe" href="projects.html">Projects</a>
-      <a class="link-wipe" href="https://www.linkedin.com/in/yiningmao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a class="link-wipe" href="https://github.com/ymao21" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="nav-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </p>
   </footer>
+
+  <!-- ───────── Project detail dialog ───────── -->
+  <div class="pm" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
+    <div class="pm-backdrop" data-close></div>
+    <div class="pm-panel" role="document">
+      <button class="pm-close" data-close type="button"><span aria-hidden="true">←</span> Back to projects</button>
+      <div class="pm-grid">
+        <aside class="pm-side">
+          <p class="pm-type" id="pmType"></p>
+          <h3 id="pmTitle"></h3>
+          <p class="pm-sub" id="pmSubtitle"></p>
+          <p class="pm-badge" id="pmBadge" hidden></p>
+          <p class="pm-team" id="pmTeam" hidden></p>
+          <div class="pm-links" id="pmLinks"></div>
+        </aside>
+        <div class="pm-body" id="pmBody" tabindex="0" aria-label="Project write-up"></div>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="script.js"></script>
 </body>
