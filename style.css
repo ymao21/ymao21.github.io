@@ -937,13 +937,13 @@ h2 { font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.022em; }
   margin-top: 24px;
 }
 .skill-group .mini-label { margin-bottom: 12px; }
-.skill-note {
+.skill-note {                 /* secondary tools: quieter than the tags above */
   margin-top: 12px;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--ink-body);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-muted);
 }
-.skill-note .mini-label { display: inline; margin: 0 6px 0 0; font-size: 9.5px; }
+.skill-note .mini-label { display: block; margin: 0 0 2px; font-size: 9.5px; }
 
 .about-ledger {
   display: grid;
