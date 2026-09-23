@@ -513,9 +513,13 @@ h2 { font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.022em; }
     linear-gradient(104deg, rgba(255, 255, 255, 0.13), rgba(0, 0, 0, 0.14) 74%),
     var(--cover);
   box-shadow: inset 5px 0 9px -6px rgba(0, 0, 0, 0.4);
-  transform: rotateY(88deg);
+  transform: rotateY(90deg);
   transform-origin: left center;
-  transition: transform 0.42s var(--ease);
+  /* closed covers are hidden outright: under the shelf's perspective a
+     cover folded to 90deg still shows as a slanted panel on books far
+     from the centre. Visibility flips only after the fold finishes. */
+  visibility: hidden;
+  transition: transform 0.42s var(--ease), visibility 0s linear 0.42s;
   backface-visibility: hidden;
   pointer-events: none;
   display: flex;
@@ -570,7 +574,11 @@ h2 { font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.022em; }
   transform: translateY(-14px);
   filter: drop-shadow(0 16px 20px rgba(34, 38, 47, 0.18));
 }
-.shelf.is-browsing .book.is-active .book-cover { transform: rotateY(-15deg); }
+.shelf.is-browsing .book.is-active .book-cover {
+  transform: rotateY(-15deg);
+  visibility: visible;
+  transition: transform 0.42s var(--ease), visibility 0s;
+}
 .shelf.is-browsing .book.shift-left  { transform: translateX(-22px); }
 .shelf.is-browsing .book.shift-right { transform: translateX(22px); }
 
@@ -579,7 +587,7 @@ h2 { font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.022em; }
   right: 100%;
   border-radius: 6px 0 0 6px;
   transform-origin: right center;
-  transform: rotateY(-88deg);
+  transform: rotateY(-90deg);
   box-shadow: inset -5px 0 9px -6px rgba(0, 0, 0, 0.4);
 }
 .shelf.is-browsing .book.open-left.is-active .book-cover { transform: rotateY(15deg); }
